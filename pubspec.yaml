@@ -60,6 +60,11 @@ flutter:
      - assets/linear_background.png
      - assets/ukflag.png
      - assets/iranflag.png
+     - assets/airplaneticket.png
+     - assets/maps.png
+     - assets/direction.png
+     - assets/weather.png
+     - assets/back.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
