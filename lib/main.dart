@@ -229,15 +229,15 @@ class _FunctionsState extends State<Functions_Page> {
                             children: [
                               Container(
                                   margin: EdgeInsets.only(top: 50),
-                                  height: 200,
+                                  height: 300,
                                   child:
-                                  Image.asset("assets/taxi.png")
+                                  Image.asset("assets/services.png")
                               ),
                               Container(
-                                  margin: EdgeInsets.only(top: 100),
+                                  margin: EdgeInsets.only(top: 50),
                                   child:
                                   Text(
-                                    "Taxi Reservation",
+                                    "Services",
                                     style: TextStyle(
                                       decoration: TextDecoration.none,
                                       fontSize: 45,
@@ -280,16 +280,14 @@ class _FunctionsState extends State<Functions_Page> {
                           child: Column(
                             children: [
                               Container(
-                                  margin: EdgeInsets.only(top: 50),
-                                  height: 200,
+                                  height: 400,
                                   child:
-                                  Image.asset("assets/hotel.png")
+                                  Image.asset("assets/places.png")
                               ),
                               Container(
-                                  margin: EdgeInsets.only(top: 100),
                                   child:
                                   Text(
-                                    "Hotel Reservation",
+                                    "Places",
                                     style: TextStyle(
                                       decoration: TextDecoration.none,
                                       fontSize: 45,
@@ -410,7 +408,7 @@ class _FunctionsState extends State<Functions_Page> {
                                   margin: EdgeInsets.only(top: 100),
                                   child:
                                   Text(
-                                    "Restaurants",
+                                    "Information",
                                     style: TextStyle(
                                       decoration: TextDecoration.none,
                                       fontSize: 45,
