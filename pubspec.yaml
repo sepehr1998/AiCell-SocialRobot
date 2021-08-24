@@ -32,6 +32,7 @@ dependencies:
   google_fonts: ^2.1.0
   analog_clock: ^0.0.1
   persian_fonts: ^1.0.4
+  http: ^0.13.3
 
 dev_dependencies:
   flutter_test:
