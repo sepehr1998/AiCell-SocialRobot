@@ -67,6 +67,10 @@ flutter:
      - assets/back.png
      - assets/services.png
      - assets/places.png
+     - assets/info.png
+     - assets/toll.png
+     - assets/flightslist.png
+     - assets/forbiddenitems.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -26,6 +26,9 @@ class _AiCellState extends State<AiCell> {
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/second': (context) => Functions_Page(),
         '/third': (context) => Languages_Page(),
+        '/forth': (context) => Services_Page(),
+        '/fifth': (context) => Information_Page(),
+        '/sixth': (context) => Places_Page(),
         },
         home: face());
   }
@@ -120,17 +123,6 @@ class _FunctionsState extends State<Functions_Page> {
                                       color: Colors.white
                                   ),),
                               ),
-                              Container(
-                                width: 320,
-                                margin: EdgeInsets.only(top: 30, bottom: 100, left: 20),
-                                child: Text("You can choose your desired service from list bellow",
-                                  textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                    fontSize: 25,
-                                      color: Colors.white,
-                                  ),),
-                              )
                             ],
                           )
                       ),
@@ -184,7 +176,7 @@ class _FunctionsState extends State<Functions_Page> {
                         Container(
                         margin: EdgeInsets.only(bottom: 20, left: 20, right: 20, top: 5),
                         child:
-                        Text("My Services",
+                        Text("What Can I Do?",
                         style: TextStyle(
                         decoration: TextDecoration.none,
                         color: Color(0xff0358cd),
@@ -196,58 +188,67 @@ class _FunctionsState extends State<Functions_Page> {
                         ],
                         ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: 40),
-                          height: 500,
-                          width: 450,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topRight,
-                              end: Alignment.bottomLeft,
-                              colors: [
-                                Color(0xff0358cd),
-                                Color(0xff4286fb),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                spreadRadius: 2,
-                                blurRadius: 10,
-                                offset: Offset(5, 5),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Services_Page()),
+                              );
+                            },
+                            child:
+                            Container(
+                              margin: EdgeInsets.only(left: 40),
+                              height: 500,
+                              width: 450,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topRight,
+                                  end: Alignment.bottomLeft,
+                                  colors: [
+                                    Color(0xff0358cd),
+                                    Color(0xff4286fb),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    offset: Offset(5, 5),
+                                  ),
+                                  BoxShadow(
+                                    color: Colors.white,
+                                    offset: const Offset(0.0, 0.0),
+                                    blurRadius: 0.0,
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
                               ),
-                              BoxShadow(
-                                color: Colors.white,
-                                offset: const Offset(0.0, 0.0),
-                                blurRadius: 0.0,
-                                spreadRadius: 0.0,
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                  margin: EdgeInsets.only(top: 50),
-                                  height: 300,
-                                  child:
-                                  Image.asset("assets/services.png")
-                              ),
-                              Container(
-                                  margin: EdgeInsets.only(top: 50),
-                                  child:
-                                  Text(
-                                    "Services",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      fontSize: 45,
-                                      color: Colors.white,
-                                    ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                      margin: EdgeInsets.only(top: 50),
+                                      height: 300,
+                                      child:
+                                      Image.asset("assets/services.png")
+                                  ),
+                                  Container(
+                                      margin: EdgeInsets.only(top: 50),
+                                      child:
+                                      Text(
+                                        "Services",
+                                        style: TextStyle(
+                                          decoration: TextDecoration.none,
+                                          fontSize: 45,
+                                          color: Colors.white,
+                                        ),
+                                      )
                                   )
-                              )
-                            ],
-                          ),
-                        ),
+                                ],
+                              ),
+                            ),
+                          )
                       ],
                     ),
 
@@ -256,48 +257,57 @@ class _FunctionsState extends State<Functions_Page> {
 
                     Column(
                       children: [
-                        Container(
-                          height: 500,
-                          width: 450,
-                          margin: EdgeInsets.only(left: 80),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                spreadRadius: 2,
-                                blurRadius: 10,
-                                offset: Offset(5, 5),
-                              ),
-                              BoxShadow(
-                                color: Colors.white,
-                                offset: const Offset(0.0, 0.0),
-                                blurRadius: 0.0,
-                                spreadRadius: 0.0,
-                              ),
-                            ],
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Places_Page()),
+                            );
+                          },
+                          child:
+                          Container(
+                            height: 500,
+                            width: 450,
+                            margin: EdgeInsets.only(left: 80),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                  offset: Offset(5, 5),
+                                ),
+                                BoxShadow(
+                                  color: Colors.white,
+                                  offset: const Offset(0.0, 0.0),
+                                  blurRadius: 0.0,
+                                  spreadRadius: 0.0,
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                    height: 400,
+                                    child:
+                                    Image.asset("assets/places.png")
+                                ),
+                                Container(
+                                    child:
+                                    Text(
+                                      "Places",
+                                      style: TextStyle(
+                                        decoration: TextDecoration.none,
+                                        fontSize: 45,
+                                        color: Colors.black,
+                                      ),
+                                    )
+                                )
+                              ],
+                            ),
                           ),
-                          child: Column(
-                            children: [
-                              Container(
-                                  height: 400,
-                                  child:
-                                  Image.asset("assets/places.png")
-                              ),
-                              Container(
-                                  child:
-                                  Text(
-                                    "Places",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      fontSize: 45,
-                                      color: Colors.black,
-                                    ),
-                                  )
-                              )
-                            ],
-                          ),
-                        ),
+                        )
                       ],
                     ),
                   ],
@@ -367,10 +377,620 @@ class _FunctionsState extends State<Functions_Page> {
 
                     Column(
                       children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Information_Page()),
+                            );
+                          },
+                          child:
+                          Container(
+                            height: 500,
+                            width: 450,
+                            margin: EdgeInsets.only(left: 80),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: [
+                                  Color(0xff0358cd),
+                                  Color(0xff4286fb),
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                  offset: Offset(5, 5),
+                                ),
+                                BoxShadow(
+                                  color: Colors.white,
+                                  offset: const Offset(0.0, 0.0),
+                                  blurRadius: 0.0,
+                                  spreadRadius: 0.0,
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(top: 50),
+                                    height: 200,
+                                    child:
+                                    Image.asset("assets/info.png")
+                                ),
+                                Container(
+                                    margin: EdgeInsets.only(top: 100),
+                                    child:
+                                    Text(
+                                      "Information",
+                                      style: TextStyle(
+                                        decoration: TextDecoration.none,
+                                        fontSize: 45,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+
+    );
+  }
+}
+
+
+
+
+
+
+
+class Services_Page extends StatefulWidget {
+  @override
+  _ServicesState createState() => _ServicesState();
+}
+
+class _ServicesState extends State<Services_Page> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/linear_background.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      height: 1920,
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xff0358cd),
+                    Color(0xff4286fb),
+                  ],
+                ),
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(150),
+                  bottomLeft: Radius.circular(150),
+                ),
+                border: Border.all(
+                  width: 1,
+                  color: Colors.transparent,
+                )
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+
+                    ),
+                    margin: EdgeInsets.only(top: 40, left: 40),
+                    child:
+                    Column(
+                      children: [
+                        Text(
+                          "Good Evening",
+                          style: TextStyle(
+                              decoration: TextDecoration.none,
+                              fontSize: 45,
+                              color: Colors.white
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 30, bottom: 20),
+                          child: Text("  Welcome to AICell",
+                            style: TextStyle(
+                                decoration: TextDecoration.none,
+                                fontSize: 35,
+                                color: Colors.white
+                            ),),
+                        ),
+                      ],
+                    )
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 200, top: 20, bottom: 20),
+                  height: 400,
+                  child:
+                  AnalogClock(
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 2.0, color: Colors.black),
+                        color: Colors.black,
+                        shape: BoxShape.circle),
+                    width: 400,
+                    isLive: true,
+                    hourHandColor: Colors.white,
+                    minuteHandColor: Colors.white,
+                    showSecondHand: true,
+                    secondHandColor: Colors.red,
+                    numberColor: Color(0xfffcb813),
+                    showNumbers: true,
+                    textScaleFactor: 1.4,
+                    showTicks: true,
+                    tickColor: Color(0xfffcb813),
+                    showDigitalClock: false,
+                    datetime: DateTime(2019, 1, 1, 9, 12, 15),
+                  ),
+                )
+              ],
+            ),
+          ),
+
+          Container(
+            height: 1478,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 40, bottom: 40, left: 40),
+                          child: Column(
+                            children: [
+                              DottedBorder(
+                                borderType: BorderType.RRect,
+                                radius: Radius.circular(20),
+                                color: Colors.blue,
+                                strokeWidth: 5,
+                                dashPattern: [6, 3, 2, 3],
+                                child:
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 20, left: 20, right: 20, top: 5),
+                                  child:
+                                  Text("My Services",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      color: Color(0xff0358cd),
+                                      fontFamily: 'OtomanopeeOne',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 40),
+                          height: 500,
+                          width: 450,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(5, 5),
+                              ),
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(top: 50),
+                                  height: 300,
+                                  child:
+                                  Image.asset("assets/taxi.png")
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(top: 50),
+                                  child:
+                                  Text(
+                                    "Taxi",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 45,
+                                      color: Colors.black,
+                                    ),
+                                  )
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+
+
+
+                    Column(
+                      children: [
                         Container(
                           height: 500,
                           width: 450,
                           margin: EdgeInsets.only(left: 80),
+                          decoration:
+                          BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [
+                                Color(0xff0358cd),
+                                Color(0xff4286fb),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(5, 5),
+                              ),
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                  height: 400,
+                                  child:
+                                  Image.asset("assets/hotel.png")
+                              ),
+                              Container(
+                                  child:
+                                  Text(
+                                    "Hotel",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 45,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Ticket_Page()),
+                            );
+                          },
+                          child:
+                          Container(
+                            height: 500,
+                            width: 450,
+                            margin: EdgeInsets.only(top: 80, left: 40),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: [
+                                  Color(0xff0358cd),
+                                  Color(0xff4286fb),
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                  offset: Offset(5, 5),
+                                ),
+                                BoxShadow(
+                                  color: Colors.white,
+                                  offset: const Offset(0.0, 0.0),
+                                  blurRadius: 0.0,
+                                  spreadRadius: 0.0,
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                    height: 400,
+                                    child:
+                                    Image.asset("assets/toll.png")
+                                ),
+                                Container(
+                                    child:
+                                    Text(
+                                      "Toll",
+                                      style: TextStyle(
+                                        decoration: TextDecoration.none,
+                                        fontSize: 45,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+
+
+
+
+                    Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child:
+                          Container(
+                            height: 500,
+                            width: 450,
+                            margin: EdgeInsets.only(left: 80),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                  offset: Offset(5, 5),
+                                ),
+                                BoxShadow(
+                                  color: Colors.white,
+                                  offset: const Offset(0.0, 0.0),
+                                  blurRadius: 0.0,
+                                  spreadRadius: 0.0,
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(top: 50),
+                                    height: 200,
+                                    child:
+                                    Image.asset("assets/back.png")
+                                ),
+                                Container(
+                                    margin: EdgeInsets.only(top: 100),
+                                    child:
+                                    Text(
+                                      "Back",
+                                      style: TextStyle(
+                                        decoration: TextDecoration.none,
+                                        fontSize: 45,
+                                        color: Colors.black,
+                                      ),
+                                    )
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+
+    );
+  }
+}
+
+
+
+
+
+class Information_Page extends StatefulWidget {
+  @override
+  _InformationState createState() => _InformationState();
+}
+
+class _InformationState extends State<Information_Page> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/linear_background.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      height: 1920,
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xff0358cd),
+                    Color(0xff4286fb),
+                  ],
+                ),
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(150),
+                  bottomLeft: Radius.circular(150),
+                ),
+                border: Border.all(
+                  width: 1,
+                  color: Colors.transparent,
+                )
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+
+                    ),
+                    margin: EdgeInsets.only(top: 40, left: 40),
+                    child:
+                    Column(
+                      children: [
+                        Text(
+                          "Good Evening",
+                          style: TextStyle(
+                              decoration: TextDecoration.none,
+                              fontSize: 45,
+                              color: Colors.white
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 30, bottom: 20),
+                          child: Text("  Welcome to AICell",
+                            style: TextStyle(
+                                decoration: TextDecoration.none,
+                                fontSize: 35,
+                                color: Colors.white
+                            ),),
+                        ),
+                      ],
+                    )
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 200, top: 20, bottom: 20),
+                  height: 400,
+                  child:
+                  AnalogClock(
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 2.0, color: Colors.black),
+                        color: Colors.black,
+                        shape: BoxShape.circle),
+                    width: 400,
+                    isLive: true,
+                    hourHandColor: Colors.white,
+                    minuteHandColor: Colors.white,
+                    showSecondHand: true,
+                    secondHandColor: Colors.red,
+                    numberColor: Color(0xfffcb813),
+                    showNumbers: true,
+                    textScaleFactor: 1.4,
+                    showTicks: true,
+                    tickColor: Color(0xfffcb813),
+                    showDigitalClock: false,
+                    datetime: DateTime(2019, 1, 1, 9, 12, 15),
+                  ),
+                )
+              ],
+            ),
+          ),
+
+          Container(
+            height: 1478,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 40, top: 150),
+                          height: 500,
+                          width: 450,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(5, 5),
+                              ),
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(top: 50),
+                                  height: 300,
+                                  child:
+                                  Image.asset("assets/flightslist.png")
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(top: 50),
+                                  child:
+                                  Text(
+                                    "Flights List",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 45,
+                                      color: Colors.black,
+                                    ),
+                                  )
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    Column(
+                      children: [
+                        Container(
+                          height: 500,
+                          width: 450,
+                          margin: EdgeInsets.only(left: 80, top: 150),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.topRight,
@@ -399,16 +1019,14 @@ class _FunctionsState extends State<Functions_Page> {
                           child: Column(
                             children: [
                               Container(
-                                  margin: EdgeInsets.only(top: 50),
-                                  height: 200,
+                                  height: 400,
                                   child:
-                                  Image.asset("assets/spoon.png")
+                                  Image.asset("assets/forbiddenitems.png")
                               ),
                               Container(
-                                  margin: EdgeInsets.only(top: 100),
                                   child:
                                   Text(
-                                    "Information",
+                                    "Forbidden Items",
                                     style: TextStyle(
                                       decoration: TextDecoration.none,
                                       fontSize: 45,
@@ -422,7 +1040,74 @@ class _FunctionsState extends State<Functions_Page> {
                       ],
                     ),
                   ],
-                )
+                ),
+
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        GestureDetector(
+                        onTap: () {
+                            Navigator.pop(context);
+                            },
+                    child:
+                          Container(
+                        margin: EdgeInsets.only(left: 40, top: 150),
+                            height: 200,
+                            width: 980,
+                            decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [
+                            Color(0xff0358cd),
+                            Color(0xffffffff),
+                            ],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                            BoxShadow(
+                            color: Colors.grey,
+                            spreadRadius: 2,
+                            blurRadius: 10,
+                            offset: Offset(5, 5),
+                            ),
+                            BoxShadow(
+                            color: Colors.white,
+                            offset: const Offset(0.0, 0.0),
+                            blurRadius: 0.0,
+                            spreadRadius: 0.0,
+                            ),
+                            ],
+                            ),
+                            child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                             Container(
+                            height: 100,
+                            child:
+                              Image.asset("assets/back.png")
+                            ),
+                              Container(
+                              child:
+                                   Text(
+                                    "Back",
+                                    style: TextStyle(
+                                    decoration: TextDecoration.none,
+                                    fontSize: 45,
+                                    color: Colors.black,
+                                    ),
+                                    )
+                            ),
+                            ],
+                          ),
+                        ),
+                            ),
+                      ],
+                    ),
+                  ],
+                ),
+
               ],
             ),
           )
@@ -432,6 +1117,688 @@ class _FunctionsState extends State<Functions_Page> {
     );
   }
 }
+
+
+
+
+
+
+class Places_Page extends StatefulWidget {
+  @override
+  _PlacesState createState() => _PlacesState();
+}
+
+class _PlacesState extends State<Places_Page> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/linear_background.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      height: 1920,
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xff0358cd),
+                    Color(0xff4286fb),
+                  ],
+                ),
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(150),
+                  bottomLeft: Radius.circular(150),
+                ),
+                border: Border.all(
+                  width: 1,
+                  color: Colors.transparent,
+                )
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+
+                    ),
+                    margin: EdgeInsets.only(top: 40, left: 40),
+                    child:
+                    Column(
+                      children: [
+                        Text(
+                          "Good Evening",
+                          style: TextStyle(
+                              decoration: TextDecoration.none,
+                              fontSize: 45,
+                              color: Colors.white
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 30, bottom: 20),
+                          child: Text("  Welcome to AICell",
+                            style: TextStyle(
+                                decoration: TextDecoration.none,
+                                fontSize: 35,
+                                color: Colors.white
+                            ),),
+                        ),
+                      ],
+                    )
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 200, top: 20, bottom: 20),
+                  height: 400,
+                  child:
+                  AnalogClock(
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 2.0, color: Colors.black),
+                        color: Colors.black,
+                        shape: BoxShape.circle),
+                    width: 400,
+                    isLive: true,
+                    hourHandColor: Colors.white,
+                    minuteHandColor: Colors.white,
+                    showSecondHand: true,
+                    secondHandColor: Colors.red,
+                    numberColor: Color(0xfffcb813),
+                    showNumbers: true,
+                    textScaleFactor: 1.4,
+                    showTicks: true,
+                    tickColor: Color(0xfffcb813),
+                    showDigitalClock: false,
+                    datetime: DateTime(2019, 1, 1, 9, 12, 15),
+                  ),
+                )
+              ],
+            ),
+          ),
+
+          Container(
+            height: 1478,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 40, top: 50),
+                          height: 100,
+                          width: 450,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [
+                                Color(0xff0358cd),
+                                Color(0xff4286fb),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(5, 5),
+                              ),
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child:
+                                  Text(
+                                    "Baggage Reclaim",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 45,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+
+
+
+                    Column(
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 450,
+                          margin: EdgeInsets.only(left: 80, top: 50),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(5, 5),
+                              ),
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child:
+                                  Text(
+                                    "Exchange",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 45,
+                                      color: Colors.black,
+                                    ),
+                                  )
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 40, top: 50),
+                          height: 100,
+                          width: 450,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(5, 5),
+                              ),
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child:
+                                  Text(
+                                    "Toll",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 45,
+                                      color: Colors.black,
+                                    ),
+                                  )
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+
+
+
+                    Column(
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 450,
+                          margin: EdgeInsets.only(left: 80, top: 50),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [
+                                Color(0xff0358cd),
+                                Color(0xff4286fb),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(5, 5),
+                              ),
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child:
+                                  Text(
+                                    "WC",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 45,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 40, top: 50),
+                          height: 100,
+                          width: 450,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [
+                                Color(0xff0358cd),
+                                Color(0xff4286fb),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(5, 5),
+                              ),
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child:
+                                  Text(
+                                    "Cafe & Restaurant",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 45,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+
+
+
+                    Column(
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 450,
+                          margin: EdgeInsets.only(left: 80, top: 50),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(5, 5),
+                              ),
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child:
+                                  Text(
+                                    "Shopping",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 45,
+                                      color: Colors.black,
+                                    ),
+                                  )
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 40, top: 50),
+                          height: 100,
+                          width: 450,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(5, 5),
+                              ),
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child:
+                                  Text(
+                                    "Check-in",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 45,
+                                      color: Colors.black,
+                                    ),
+                                  )
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+
+
+
+                    Column(
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 450,
+                          margin: EdgeInsets.only(left: 80, top: 50),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [
+                                Color(0xff0358cd),
+                                Color(0xff4286fb),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(5, 5),
+                              ),
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child:
+                                  Text(
+                                    "Gates",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 45,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 40, top: 50),
+                          height: 100,
+                          width: 450,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [
+                                Color(0xff0358cd),
+                                Color(0xff4286fb),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(5, 5),
+                              ),
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child:
+                                  Text(
+                                    "Passport Control",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 45,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+
+
+
+                    Column(
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 450,
+                          margin: EdgeInsets.only(left: 80, top: 50),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(5, 5),
+                              ),
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child:
+                                  Text(
+                                    "Customs",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 45,
+                                      color: Colors.black,
+                                    ),
+                                  )
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child:
+                          Container(
+                            margin: EdgeInsets.only(left: 40, top: 150),
+                            height: 200,
+                            width: 980,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: [
+                                  Color(0xff0358cd),
+                                  Color(0xffffffff),
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                  offset: Offset(5, 5),
+                                ),
+                                BoxShadow(
+                                  color: Colors.white,
+                                  offset: const Offset(0.0, 0.0),
+                                  blurRadius: 0.0,
+                                  spreadRadius: 0.0,
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                    height: 100,
+                                    child:
+                                    Image.asset("assets/back.png")
+                                ),
+                                Container(
+                                    child:
+                                    Text(
+                                      "Back",
+                                      style: TextStyle(
+                                        decoration: TextDecoration.none,
+                                        fontSize: 45,
+                                        color: Colors.black,
+                                      ),
+                                    )
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+
+    );
+  }
+}
+
 
 
 
@@ -1258,10 +2625,7 @@ class _TicketState extends State<Ticket_Page> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Functions_Page()),
-                        );
+                        Navigator.pop(context);
                       },
                       child:
                     Container(
