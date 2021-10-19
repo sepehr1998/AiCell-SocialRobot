@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
@@ -5,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:analog_clock/analog_clock.dart';
 import 'package:persian_fonts/persian_fonts.dart';
+import 'package:http/http.dart' as http;
+
+String state = "start";
 
 void main() {
   runApp(AiCell());
@@ -15,11 +20,53 @@ class AiCell extends StatefulWidget {
 }
 
 class _AiCellState extends State<AiCell> {
+
+  final Duration timerDurationGet = Duration(milliseconds: 600);
+  final Duration timerDurationSend = Duration(milliseconds: 200);
+
+  Future<http.Response> getState() async {
+    var url = Uri.parse('http://localhost:5002/send_ui_state');
+    var response = await http.get(url,
+        headers: {"content-type": "application/json"});
+    return response;
+  }
+
+  Future<http.Response> setUIState(String state) async {
+    var url = Uri.parse('http://localhost:5002/get_ui_state');
+    var response = await http.post(url,
+        body: jsonEncode({'state': state}),
+        headers: {"content-type": "application/json"});
+    return response;
+  }
+
   @override
   Widget build(BuildContext context) {
+    Timer getTimer = new Timer.periodic(timerDurationGet, (timer) {
+      getState().then((value) {
+        if(value.statusCode ==200){
+          String newState = jsonDecode(value.body)['ui_state'];
+          if(newState != state){
+            state = newState;
+            switch (state) {
+              case "choose_language":
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Languages_Page()),
+                );
+              break;
+              case "wait_ticket":
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Ticket_Page()),
+                );
+            }
+          }
+        }
+      });
+    });
+    Timer setTimer = new Timer.periodic(timerDurationSend, (timer) => setUIState(state));
     return
       MaterialApp(
-
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
@@ -39,13 +86,31 @@ class face extends StatefulWidget {
 }
 
 class _faceState extends State<face> {
+
+  Future<http.Response> touched() async {
+    var url = Uri.parse('http://localhost:5002/language');
+    var response = await http.post(url,
+        body: jsonEncode({'touched': 'True'}),
+        headers: {"content-type": "application/json"});
+    return response;
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Languages_Page()),
+        touched().then((value) {
+            if (value.statusCode == 200) {
+              state = "choose_language";
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Languages_Page()),
+              );
+            }
+          }
         );
       },
       child:Container(
@@ -1814,6 +1879,15 @@ class Languages_Page extends StatefulWidget {
 }
 
 class _LanguagesState extends State<Languages_Page> {
+
+  Future<http.Response> languageSelected(String language) async {
+    var url = Uri.parse('http://localhost:5002/language');
+    var response = await http.post(url,
+        body: jsonEncode({'touched': 'True', 'language': language}),
+        headers: {"content-type": "application/json"});
+    return response;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -1938,10 +2012,13 @@ class _LanguagesState extends State<Languages_Page> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Functions_Page()),
-                        );
+                        languageSelected("English").then((value) {
+                          if(value.statusCode ==200)
+                              Navigator.push(
+                              context,
+                                MaterialPageRoute(builder: (context) => Functions_Page()),
+                              );
+                        });
                       },
                       child:
                       Container(
@@ -1988,55 +2065,67 @@ class _LanguagesState extends State<Languages_Page> {
                       ),
 
                     ),
-                    Container(
-                        margin: EdgeInsets.only(left: 150, top: 80),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            colors: [
-                              Color(0xff0358cd),
-                              Color(0xff4286fb),
+                    GestureDetector(
+                      onTap: () {
+                        languageSelected("Farsi").then((value) {
+                          if(value.statusCode ==200)
+                            Navigator.push(
+                              context,
+                              // TODO edit this so it redirect to farsi page
+                              MaterialPageRoute(builder: (context) => Functions_Page()),
+                            );
+                        });
+                      },
+                      child: Container(
+                          margin: EdgeInsets.only(left: 150, top: 80),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [
+                                Color(0xff0358cd),
+                                Color(0xff4286fb),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(5, 5),
+                              ),
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ),
                             ],
                           ),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: Offset(5, 5),
-                            ),
-                            BoxShadow(
-                              color: Colors.white,
-                              offset: const Offset(0.0, 0.0),
-                              blurRadius: 0.0,
-                              spreadRadius: 0.0,
-                            ),
-                          ],
-                        ),
-                        child:
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                margin: EdgeInsets.only(top: 80, left: 200, right: 40),
-                                child: Text(
-                                  "فارسی",
-                                  style:
-                                  PersianFonts.Shabnam.copyWith(
-                                    decoration: TextDecoration.none,
-                                    color: Colors.white,
-                                  ),
-                                )
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(top: 40, left: 40, right: 40, bottom: 80),
-                                height: 100,
-                                child: Image.asset("assets/iranflag.png")
-                            ),
-                          ],
-                        )
+                          child:
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(top: 80, left: 200, right: 40),
+                                  child: Text(
+                                    "فارسی",
+                                    style:
+                                    PersianFonts.Shabnam.copyWith(
+                                      decoration: TextDecoration.none,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(top: 40, left: 40, right: 40, bottom: 80),
+                                  height: 100,
+                                  child: Image.asset("assets/iranflag.png")
+                              ),
+                            ],
+                          )
+                      ),
                     )
                   ],
                 )
