@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:analog_clock/analog_clock.dart';
+import 'package:easy_web_view/easy_web_view.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:http/http.dart' as http;
 
@@ -39,30 +40,56 @@ class _AiCellState extends State<AiCell> {
     return response;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    Timer getTimer = new Timer.periodic(timerDurationGet, (timer) {
-      getState().then((value) {
-        if(value.statusCode ==200){
-          String newState = jsonDecode(value.body)['ui_state'];
-          if(newState != state){
-            state = newState;
-            switch (state) {
-              case "choose_language":
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Languages_Page()),
-                );
+  Future<http.Response> touched() async {
+    var url = Uri.parse('http://localhost:5002/touch');
+    var response = await http.post(url,
+        body: jsonEncode({'touched': 'True'}),
+        headers: {"content-type": "application/json"});
+    return response;
+  }
+
+
+  void changePage(timer) {
+    getState().then((value) {
+      if(value.statusCode ==200){
+        String newState = jsonDecode(value.body)['ui_state'];
+        if(newState != state){
+          state = newState;
+          print("ui state changed to: "+ state);
+          switch (state) {
+            case "choose_language":
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Languages_Page()),
+              );
               break;
-              case "wait_ticket":
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Ticket_Page()),
-                );
-            }
+            case "start":
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => face()),
+              );
+              break;
+            case "wait_ticket":
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Ticket_Page()),
+              );
+              break;
+            case "ticket":
+              showDialog(context: context, builder: (context) => Camera_Page());
+              break;
+            case "alpha":
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Functions_Page()),
+              );
+              break;
+            case "mask_error":
+              showDialog(context: context, builder: (context) => Camera_Page());
+              break;
           }
         }
-      });
+      }
     });
     Timer setTimer = new Timer.periodic(timerDurationSend, (timer) => setUIState(state));
     return
@@ -100,6 +127,8 @@ class _faceState extends State<face> {
 
   @override
   Widget build(BuildContext context) {
+    Timer getTimer = new Timer.periodic(timerDurationGet, changePage);
+    Timer setTimer = new Timer.periodic(timerDurationSend, (timer) => setUIState(state));
     return GestureDetector(
       onTap: () {
         touched().then((value) {
@@ -383,6 +412,7 @@ class _FunctionsState extends State<Functions_Page> {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            state = "ticket";
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => Ticket_Page()),
@@ -2779,3 +2809,27 @@ class _TicketState extends State<Ticket_Page> {
   }
 }
 
+
+class Camera_Page extends StatefulWidget {
+  @override
+  _CameraState createState() => _CameraState();
+}
+
+class _CameraState extends State<Camera_Page> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: EasyWebView(
+        src: "https://flutter.dev/",
+        key: Key("Test"),
+        isHtml: false, // Use Html syntax
+        isMarkdown: false, // Use markdown syntax
+        convertToWidgets: false,
+        onLoaded: () {
+          print('Loaded');
+        },
+      ),
+    );
+  }
+}
