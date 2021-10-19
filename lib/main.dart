@@ -11,6 +11,8 @@ import 'package:persian_fonts/persian_fonts.dart';
 import 'package:http/http.dart' as http;
 
 String state = "start";
+final Duration timerDurationGet = Duration(milliseconds: 600);
+final Duration timerDurationSend = Duration(milliseconds: 200);
 
 void main() {
   runApp(AiCell());
@@ -22,8 +24,41 @@ class AiCell extends StatefulWidget {
 
 class _AiCellState extends State<AiCell> {
 
-  final Duration timerDurationGet = Duration(milliseconds: 600);
-  final Duration timerDurationSend = Duration(milliseconds: 200);
+
+  @override
+  Widget build(BuildContext context
+      ) {
+    return
+      MaterialApp(
+          debugShowCheckedModeBanner: false,
+          initialRoute: '/',
+          routes: {
+            // When navigating to the "/second" route, build the SecondScreen widget.
+            '/second': (context) => Functions_Page(),
+            '/third': (context) => Languages_Page(),
+            '/forth': (context) => Services_Page(),
+            '/fifth': (context) => Information_Page(),
+            '/sixth': (context) => Places_Page(),
+          },
+          home: face());
+  }
+}
+class face extends StatefulWidget {
+  @override
+  _faceState createState() => _faceState();
+}
+
+class _faceState extends State<face> {
+
+  Future<http.Response> touched() async {
+    var url = Uri.parse('http://localhost:5002/language');
+    var response = await http.post(url,
+        body: jsonEncode({'touched': 'True'}),
+        headers: {"content-type": "application/json"});
+    return response;
+  }
+
+
 
   Future<http.Response> getState() async {
     var url = Uri.parse('http://localhost:5002/send_ui_state');
@@ -39,15 +74,6 @@ class _AiCellState extends State<AiCell> {
         headers: {"content-type": "application/json"});
     return response;
   }
-
-  Future<http.Response> touched() async {
-    var url = Uri.parse('http://localhost:5002/touch');
-    var response = await http.post(url,
-        body: jsonEncode({'touched': 'True'}),
-        headers: {"content-type": "application/json"});
-    return response;
-  }
-
 
   void changePage(timer) {
     getState().then((value) {
@@ -91,37 +117,7 @@ class _AiCellState extends State<AiCell> {
         }
       }
     });
-    Timer setTimer = new Timer.periodic(timerDurationSend, (timer) => setUIState(state));
-    return
-      MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        routes: {
-        // When navigating to the "/second" route, build the SecondScreen widget.
-        '/second': (context) => Functions_Page(),
-        '/third': (context) => Languages_Page(),
-        '/forth': (context) => Services_Page(),
-        '/fifth': (context) => Information_Page(),
-        '/sixth': (context) => Places_Page(),
-        },
-        home: face());
   }
-}
-class face extends StatefulWidget {
-  @override
-  _faceState createState() => _faceState();
-}
-
-class _faceState extends State<face> {
-
-  Future<http.Response> touched() async {
-    var url = Uri.parse('http://localhost:5002/language');
-    var response = await http.post(url,
-        body: jsonEncode({'touched': 'True'}),
-        headers: {"content-type": "application/json"});
-    return response;
-  }
-
 
 
 
@@ -2818,18 +2814,46 @@ class Camera_Page extends StatefulWidget {
 class _CameraState extends State<Camera_Page> {
 
   @override
+  @override
   Widget build(BuildContext context) {
     return Container(
-      child: EasyWebView(
-        src: "https://flutter.dev/",
-        key: Key("Test"),
-        isHtml: false, // Use Html syntax
-        isMarkdown: false, // Use markdown syntax
-        convertToWidgets: false,
-        onLoaded: () {
-          print('Loaded');
-        },
-      ),
+        width: 700,
+        height: 700,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 640,
+              height: 480,
+              child:
+              EasyWebView(
+                src: "http://localhost:5002/",
+                key: Key("Camera"),
+                isHtml: false,
+                isMarkdown: false,
+                convertToWidgets: false,
+                onLoaded: (){
+                  print('loaded');
+                },
+              ) ,
+            ),
+            Container(
+              width: 640,
+              height: 150,
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Container(
+                width: 100,
+                height: 80,
+                child: ElevatedButton(
+                  child: Text("بازگشت"),
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                ),
+              ),
+            ),
+          ],
+        )
     );
   }
 }
