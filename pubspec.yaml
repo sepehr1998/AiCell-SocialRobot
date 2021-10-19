@@ -33,6 +33,9 @@ dependencies:
   analog_clock: ^0.0.1
   persian_fonts: ^1.0.4
   http: ^0.13.3
+  flutter_inappwebview: ^5.3.2
+  url_launcher: ^6.0.0-nullsafety.4
+  easy_web_view: ^1.5.0
 
 dev_dependencies:
   flutter_test:
@@ -66,8 +69,9 @@ flutter:
      - assets/direction.png
      - assets/weather.png
      - assets/back.png
-     - assets/services.png
-     - assets/places.png
+     - assets/welcome-icegif.gif
+#     - assets/services.png
+#     - assets/places.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
