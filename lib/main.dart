@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:html';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +9,46 @@ import 'package:analog_clock/analog_clock.dart';
 import 'package:easy_web_view/easy_web_view.dart';
 import 'package:persian_fonts/persian_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:dart_nats/dart_nats.dart';
 
 String state = "start";
-final Duration timerDurationGet = Duration(milliseconds: 600);
-final Duration timerDurationSend = Duration(milliseconds: 200);
+// final Duration timerDurationGet = Duration(milliseconds: 600);
+// final Duration timerDurationSend = Duration(milliseconds: 200);
+
+var client = Client();
 
 void main() {
+  connect();
   runApp(AiCell());
 }
+
+
+void sendUIStateToCore(String state){
+  client.pubString('UI2CORE', state);
+}
+
+
+void connect() async{
+  await client.connect(Uri.parse('ws://localhost:80'));
+  sendUIStateToCore(state);
+}
+
+
+Future<http.Response> getState() async {
+  var url = Uri.parse('http://localhost:5002/send_ui_state');
+  var response = await http.get(url,
+      headers: {"content-type": "application/json"});
+  return response;
+}
+
+Future<http.Response> setUIState(String state) async {
+  var url = Uri.parse('http://localhost:5002/get_ui_state');
+  var response = await http.post(url,
+      body: jsonEncode({'state': state}),
+      headers: {"content-type": "application/json"});
+  return response;
+}
+
 class AiCell extends StatefulWidget {
   @override
   _AiCellState createState() => _AiCellState();
@@ -51,7 +83,7 @@ class face extends StatefulWidget {
 class _faceState extends State<face> {
 
   Future<http.Response> touched() async {
-    var url = Uri.parse('http://localhost:5002/language');
+    var url = Uri.parse('http://localhost:5002/touch');
     var response = await http.post(url,
         body: jsonEncode({'touched': 'True'}),
         headers: {"content-type": "application/json"});
@@ -60,80 +92,146 @@ class _faceState extends State<face> {
 
 
 
-  Future<http.Response> getState() async {
-    var url = Uri.parse('http://localhost:5002/send_ui_state');
-    var response = await http.get(url,
-        headers: {"content-type": "application/json"});
-    return response;
-  }
-
-  Future<http.Response> setUIState(String state) async {
-    var url = Uri.parse('http://localhost:5002/get_ui_state');
-    var response = await http.post(url,
-        body: jsonEncode({'state': state}),
-        headers: {"content-type": "application/json"});
-    return response;
-  }
-
-  void changePage(timer) {
-    getState().then((value) {
-      if(value.statusCode ==200){
-        String newState = jsonDecode(value.body)['ui_state'];
-        if(newState != state){
-          state = newState;
-          print("ui state changed to: "+ state);
-          switch (state) {
-            case "choose_language":
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Languages_Page()),
-              );
-              break;
-            case "start":
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => face()),
-              );
-              break;
-            case "wait_ticket":
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Ticket_Page()),
-              );
-              break;
-            case "ticket":
-              showDialog(context: context, builder: (context) => Camera_Page());
-              break;
-            case "alpha":
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Functions_Page()),
-              );
-              break;
-            case "mask_error":
-              showDialog(context: context, builder: (context) => Camera_Page());
-              break;
-          }
-        }
-      }
-    });
-  }
+  // void syncState(timer) async{
+  //   await setUIState(newState);
+  //   var value = await getState();
+  //   if(value.statusCode ==200){
+  //     newState = jsonDecode(value.body)['ui_state'];
+  //     if(newState != state){
+  //       state = newState;
+  //       print("ui state changed to: "+ state);
+  //       switch (state) {
+  //         case "choose_language":
+  //           Navigator.push(
+  //             context,
+  //             MaterialPageRoute(builder: (context) => Languages_Page()),
+  //           );
+  //           break;
+  //         case "start":
+  //           Navigator.push(
+  //             context,
+  //             MaterialPageRoute(builder: (context) => face()),
+  //           );
+  //           break;
+  //         case "introduction":
+  //           Navigator.push(
+  //             context,
+  //             MaterialPageRoute(builder: (context) => face()),
+  //           );
+  //           break;
+  //         case "wait_move":
+  //           Navigator.push(
+  //             context,
+  //             MaterialPageRoute(builder: (context) => face()),
+  //           );
+  //           break;
+  //         case "move_to_destination":
+  //           Navigator.push(
+  //             context,
+  //             MaterialPageRoute(builder: (context) => face()),
+  //           );
+  //           break;
+  //         case "goodbye":
+  //           Navigator.push(
+  //             context,
+  //             MaterialPageRoute(builder: (context) => face()),
+  //           );
+  //           break;
+  //         case "wait_ticket":
+  //           Navigator.push(
+  //             context,
+  //             MaterialPageRoute(builder: (context) => Ticket_Page()),
+  //           );
+  //           break;
+  //         case "ticket":
+  //           showDialog(context: context, builder: (context) => Camera_Page(), barrierDismissible: false);
+  //           break;
+  //         case "alpha":
+  //           Navigator.push(
+  //             context,
+  //             MaterialPageRoute(builder: (context) => Functions_Page()),
+  //           );
+  //           break;
+  //         case "mask_error":
+  //           showDialog(context: context, builder: (context) => Camera_Page(),  barrierDismissible: false);
+  //           break;
+  //       }
+  //     }
+  //   }
+  // }
 
 
 
   @override
   Widget build(BuildContext context) {
-    Timer getTimer = new Timer.periodic(timerDurationGet, changePage);
-    Timer setTimer = new Timer.periodic(timerDurationSend, (timer) => setUIState(state));
+    // Timer getTimer = new Timer.periodic(timerDurationGet, syncState);
+    var sub = client.sub("CORE2UI");
+    sub.stream.listen((event) {
+      state = event.string;
+      print("ui state changed to: "+ state);
+      switch (state) {
+        case "choose_language":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Languages_Page()),
+          );
+          break;
+        case "start":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => face()),
+          );
+          break;
+        case "introduction":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => face()),
+          );
+          break;
+        case "wait_move":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => face()),
+          );
+          break;
+        case "move_to_destination":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => face()),
+          );
+          break;
+        case "goodbye":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => face()),
+          );
+          break;
+        case "wait_ticket":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Ticket_Page()),
+          );
+          break;
+        case "ticket":
+          showDialog(context: context, builder: (context) => Camera_Page(), barrierDismissible: false);
+          break;
+        case "alpha":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Functions_Page()),
+          );
+          break;
+        case "mask_error":
+          showDialog(context: context, builder: (context) => Camera_Page(),  barrierDismissible: false);
+          break;
+      }
+    });
     return GestureDetector(
       onTap: () {
         touched().then((value) {
             if (value.statusCode == 200) {
               state = "choose_language";
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Languages_Page()),
-              );
+              sendUIStateToCore(state);
             }
           }
         );
@@ -407,12 +505,9 @@ class _FunctionsState extends State<Functions_Page> {
                     Column(
                       children: [
                         GestureDetector(
-                          onTap: () {
+                          onTap: (){
                             state = "ticket";
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Ticket_Page()),
-                            );
+                            sendUIStateToCore(state);
                           },
                           child:
                           Container(
@@ -1220,8 +1315,32 @@ class Places_Page extends StatefulWidget {
 }
 
 class _PlacesState extends State<Places_Page> {
+
+  var places= [];
+
+  Future<http.Response> getPlaces() async {
+    var url = Uri.parse('http://localhost:5002/send_places');
+    var response = await http.get(url,
+        headers: {"content-type": "application/json"});
+    return response;
+  }
+
+  Future<dynamic> loadData() async{
+    var tmp = await getPlaces();
+    places = jsonDecode(tmp.body)["places"];
+    return places;
+  }
+
+  FutureBuilder getPlacesShape(){
+    return FutureBuilder(builder: (context, snapshot) =>Text(snapshot.data.toString())
+        , future: loadData()
+        ,initialData: []);
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    loadData();
     return Container(
       decoration: BoxDecoration(
         image: const DecorationImage(
@@ -1815,6 +1934,7 @@ class _PlacesState extends State<Places_Page> {
                     ),
                   ],
                 ),
+                getPlacesShape(),
                 Row(
                   children: [
                     Column(
@@ -2040,10 +2160,8 @@ class _LanguagesState extends State<Languages_Page> {
                       onTap: () {
                         languageSelected("English").then((value) {
                           if(value.statusCode ==200)
-                              Navigator.push(
-                              context,
-                                MaterialPageRoute(builder: (context) => Functions_Page()),
-                              );
+                            state = "alpha";
+                            sendUIStateToCore(state);
                         });
                       },
                       child:
@@ -2095,11 +2213,8 @@ class _LanguagesState extends State<Languages_Page> {
                       onTap: () {
                         languageSelected("Farsi").then((value) {
                           if(value.statusCode ==200)
-                            Navigator.push(
-                              context,
-                              // TODO edit this so it redirect to farsi page
-                              MaterialPageRoute(builder: (context) => Functions_Page()),
-                            );
+                            state = "alpha";
+                            sendUIStateToCore(state);
                         });
                       },
                       child: Container(
@@ -2172,6 +2287,329 @@ class Ticket_Page extends StatefulWidget {
 }
 
 class _TicketState extends State<Ticket_Page> {
+  var json;
+
+  FutureBuilder getTicket(){
+    return FutureBuilder(builder: (context , snapshot) {
+      json = jsonDecode(snapshot.data);
+      return Container(
+        height: 500,
+        margin: EdgeInsets.only(left: 40, right: 40, top: 40),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              spreadRadius: 2,
+              blurRadius: 10,
+              offset: Offset(5, 5),
+            ),
+            BoxShadow(
+              color: Colors.white,
+              offset: const Offset(0.0, 0.0),
+              blurRadius: 0.0,
+              spreadRadius: 0.0,
+            ),
+          ],
+          borderRadius: BorderRadius.circular(80),
+          color: Colors.white,
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: 80,
+              decoration: BoxDecoration(
+                color: Color(0xff0358cd),
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(80),
+                  topLeft: Radius.circular(80),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(left: 150),
+                      height: 60,
+                      child:
+                      Image.asset("assets/airplaneticket.png")
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 80),
+                    child:
+                    Text(json['company'],
+                      style: TextStyle(
+                        decoration: TextDecoration.none,
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 100),
+                    child:
+                    Text("Boarding Pass",
+                      style: TextStyle(
+                        decoration: TextDecoration.none,
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 20),
+                      child: Text("Name of passenger:",
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 20),
+                      child: Text(json['name'],
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 80),
+                      child: Text("Carrier:",
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 80),
+                      child: Text(json['carrier'],
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 80),
+                      child: Text("Flight No:",
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 80),
+                      child: Text(json['flight_no'],
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 80),
+                      child: Text("Class:",
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 80),
+                      child: Text(json['class'],
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    )
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 50, left: 20),
+                      child: Text("From: $json['from']",
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 20),
+                      child: Text("To: $json['to']",
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 50, left: 80),
+                      child: Text("Date:",
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 80),
+                      child: Text(json['date'],
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 50, left: 80),
+                      child: Text("Luggage:",
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 80),
+                      child: Text(json['luggage'],
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 50, left: 80),
+                      child: Text("Seat:",
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 80),
+                      child: Text(json['seat'],
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontSize: 26,
+                          )),
+                    )
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 50, left: 50),
+                      child: Text("Gate",
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Color(0xff0358cd),
+                            fontSize: 40,
+                          )),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 50),
+                      child: Text(json['gate'],
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Color(0xff0358cd),
+                            fontSize: 40,
+                          )),
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 50, left: 200),
+                      child: Text("Boarding Time",
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Color(0xff0358cd),
+                            fontSize: 40,
+                          )),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 200),
+                      child: Text(json['boarding_time'],
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Color(0xff0358cd),
+                            fontSize: 40,
+                          )),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    },future:getTicketData());
+  }
+
+  Future<http.Response> getTicketData() async {
+    var url = Uri.parse('http://localhost:5002/user_data');
+    var response = await http.get(url,
+        headers: {"content-type": "application/json"});
+    return response;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -2266,315 +2704,7 @@ class _TicketState extends State<Ticket_Page> {
             height: 1478,
             child: Column(
               children: [
-                Container(
-                  height: 500,
-                  margin: EdgeInsets.only(left: 40, right: 40, top: 40),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        spreadRadius: 2,
-                        blurRadius: 10,
-                        offset: Offset(5, 5),
-                      ),
-                      BoxShadow(
-                        color: Colors.white,
-                        offset: const Offset(0.0, 0.0),
-                        blurRadius: 0.0,
-                        spreadRadius: 0.0,
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(80),
-                    color: Colors.white,
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 80,
-                        decoration: BoxDecoration(
-                          color: Color(0xff0358cd),
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(80),
-                            topLeft: Radius.circular(80),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: 150),
-                              height: 60,
-                              child:
-                                Image.asset("assets/airplaneticket.png")
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 80),
-                              child:
-                              Text("Emirates Airlines",
-                              style: TextStyle(
-                                decoration: TextDecoration.none,
-                                color: Colors.white,
-                                fontSize: 24,
-                              ),),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 100),
-                              child:
-                              Text("Boarding Pass",
-                                style: TextStyle(
-                                  decoration: TextDecoration.none,
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                ),),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 20, left: 20),
-                                child: Text("Name of passenger:",
-                                style: TextStyle(
-                                  decoration: TextDecoration.none,
-                                  color: Colors.black,
-                                  fontSize: 26,
-                                )),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 20, left: 20),
-                                child: Text("SAMADI SEPEHR",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              )
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 20, left: 80),
-                                child: Text("Carrier:",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 20, left: 80),
-                                child: Text("EM",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              )
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 20, left: 80),
-                                child: Text("Flight No:",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 20, left: 80),
-                                child: Text("EM 1108",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              )
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 20, left: 80),
-                                child: Text("Class:",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 20, left: 80),
-                                child: Text("A",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 50, left: 20),
-                                child: Text("From: Tehran IKIA",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 20, left: 20),
-                                child: Text("To: Somewhere SW",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              )
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 50, left: 80),
-                                child: Text("Date:",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 20, left: 80),
-                                child: Text("18/7/2021",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              )
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 50, left: 80),
-                                child: Text("Luggage:",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 20, left: 80),
-                                child: Text("Y",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              )
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 50, left: 80),
-                                child: Text("Seat:",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 20, left: 80),
-                                child: Text("5A",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                      fontSize: 26,
-                                    )),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 50, left: 50),
-                                child: Text("Gate",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Color(0xff0358cd),
-                                      fontSize: 40,
-                                    )),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 20, left: 50),
-                                child: Text("11",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Color(0xff0358cd),
-                                      fontSize: 40,
-                                    )),
-                              )
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 50, left: 200),
-                                child: Text("Boarding Time",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Color(0xff0358cd),
-                                      fontSize: 40,
-                                    )),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 20, left: 200),
-                                child: Text("15:30",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Color(0xff0358cd),
-                                      fontSize: 40,
-                                    )),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-
+                getTicket(),
 
 
 
@@ -2848,7 +2978,11 @@ class _CameraState extends State<Camera_Page> {
                 height: 80,
                 child: ElevatedButton(
                   child: Text("بازگشت"),
-                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  onPressed: () {
+                    state = "alpha";
+                    sendUIStateToCore(state);
+                  }
+                  ,
                 ),
               ),
             ),
