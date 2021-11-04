@@ -749,33 +749,7 @@ class _ServicesState extends State<Services_Page> {
                     Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(top: 40, bottom: 40, left: 40),
-                          child: Column(
-                            children: [
-                              DottedBorder(
-                                borderType: BorderType.RRect,
-                                radius: Radius.circular(20),
-                                color: Colors.blue,
-                                strokeWidth: 5,
-                                dashPattern: [6, 3, 2, 3],
-                                child:
-                                Container(
-                                  margin: EdgeInsets.only(bottom: 20, left: 20, right: 20, top: 5),
-                                  child:
-                                  Text("My Services",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      color: Color(0xff0358cd),
-                                      fontFamily: 'OtomanopeeOne',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 40),
+                          margin: EdgeInsets.only(left: 40, top: 60),
                           height: 500,
                           width: 450,
                           decoration: BoxDecoration(
@@ -829,7 +803,7 @@ class _ServicesState extends State<Services_Page> {
                         Container(
                           height: 500,
                           width: 450,
-                          margin: EdgeInsets.only(left: 80),
+                          margin: EdgeInsets.only(left: 80, top: 60),
                           decoration:
                           BoxDecoration(
                             gradient: LinearGradient(
@@ -954,13 +928,12 @@ class _ServicesState extends State<Services_Page> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.pop(context);
-                          },
+                            showDialog(context: context, builder: (context) => SMS_Page(), barrierDismissible: false);                          },
                           child:
                           Container(
                             height: 500,
                             width: 450,
-                            margin: EdgeInsets.only(left: 80),
+                            margin: EdgeInsets.only(left: 80, top: 80),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [
@@ -981,16 +954,16 @@ class _ServicesState extends State<Services_Page> {
                             child: Column(
                               children: [
                                 Container(
-                                    margin: EdgeInsets.only(top: 50),
+                                    margin: EdgeInsets.only(top: 80),
                                     height: 200,
                                     child:
-                                    Image.asset("assets/back.png")
+                                    Image.asset("assets/sms.png")
                                 ),
                                 Container(
                                     margin: EdgeInsets.only(top: 100),
                                     child:
                                     Text(
-                                      "Back",
+                                      "SMS Alarm",
                                       style: TextStyle(
                                         decoration: TextDecoration.none,
                                         fontSize: 45,
@@ -1004,6 +977,25 @@ class _ServicesState extends State<Services_Page> {
                         )
                       ],
                     ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      height: 120,
+                      width: 1020,
+                      margin: EdgeInsets.only(left: 30, top: 80),
+                      child:
+                      ElevatedButton(
+                        child: Text("Back", style: TextStyle(
+                            fontSize: 40
+                        ),),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        }
+                        ,
+                      ),
+                    )
                   ],
                 )
               ],
@@ -1352,85 +1344,12 @@ class _PlacesState extends State<Places_Page> {
       child: Column(
         children: [
           Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xff0358cd),
-                    Color(0xff4286fb),
-                  ],
-                ),
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(150),
-                  bottomLeft: Radius.circular(150),
-                ),
-                border: Border.all(
-                  width: 1,
-                  color: Colors.transparent,
-                )
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                    decoration: BoxDecoration(
-
-                    ),
-                    margin: EdgeInsets.only(top: 40, left: 40),
-                    child:
-                    Column(
-                      children: [
-                        Text(
-                          "Good Evening",
-                          style: TextStyle(
-                              decoration: TextDecoration.none,
-                              fontSize: 45,
-                              color: Colors.white
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 30, bottom: 20),
-                          child: Text("  Welcome to AICell",
-                            style: TextStyle(
-                                decoration: TextDecoration.none,
-                                fontSize: 35,
-                                color: Colors.white
-                            ),),
-                        ),
-                      ],
-                    )
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 200, top: 20, bottom: 20),
-                  height: 400,
-                  child:
-                  AnalogClock(
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 2.0, color: Colors.black),
-                        color: Colors.black,
-                        shape: BoxShape.circle),
-                    width: 400,
-                    isLive: true,
-                    hourHandColor: Colors.white,
-                    minuteHandColor: Colors.white,
-                    showSecondHand: true,
-                    secondHandColor: Colors.red,
-                    numberColor: Color(0xfffcb813),
-                    showNumbers: true,
-                    textScaleFactor: 1.4,
-                    showTicks: true,
-                    tickColor: Color(0xfffcb813),
-                    showDigitalClock: false,
-                    datetime: DateTime(2019, 1, 1, 9, 12, 15),
-                  ),
-                )
-              ],
-            ),
+            height: 600,
+            child:
+              Image.asset("assets/features.png")
           ),
-
           Container(
-            height: 1478,
+            height: 1320,
             child: Column(
               children: [
                 Row(
@@ -1934,7 +1853,6 @@ class _PlacesState extends State<Places_Page> {
                     ),
                   ],
                 ),
-                getPlacesShape(),
                 Row(
                   children: [
                     Column(
@@ -2291,7 +2209,23 @@ class _TicketState extends State<Ticket_Page> {
 
   FutureBuilder getTicket(){
     return FutureBuilder(builder: (context , snapshot) {
-      json = jsonDecode(snapshot.data);
+      if(!snapshot.hasError)
+        json = jsonDecode(snapshot.data);
+      else
+        json= {
+          'boarding_time':'00:00',
+          'gate':'11',
+          'seat': '11 A',
+          'luggage': 'Y',
+          'date': '11/08/2021',
+          'to': 'First Airport',
+          'from': 'Second Airport',
+          'class': 'A',
+          'flight_no':'724',
+          'company':'Test',
+          'carrier':'EA',
+          'name': 'Test Test'
+        };
       return Container(
         height: 500,
         margin: EdgeInsets.only(left: 40, right: 40, top: 40),
@@ -2458,7 +2392,7 @@ class _TicketState extends State<Ticket_Page> {
                   children: [
                     Container(
                       margin: EdgeInsets.only(top: 50, left: 20),
-                      child: Text("From: $json['from']",
+                      child: Text("From: "+json['from'],
                           style: TextStyle(
                             decoration: TextDecoration.none,
                             color: Colors.black,
@@ -2467,7 +2401,7 @@ class _TicketState extends State<Ticket_Page> {
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 20, left: 20),
-                      child: Text("To: $json['to']",
+                      child: Text("To: "+json['from'],
                           style: TextStyle(
                             decoration: TextDecoration.none,
                             color: Colors.black,
@@ -2600,7 +2534,7 @@ class _TicketState extends State<Ticket_Page> {
           ],
         ),
       );
-    },future:getTicketData());
+    },future:getTicketData() ,);
   }
 
   Future<http.Response> getTicketData() async {
@@ -2710,51 +2644,59 @@ class _TicketState extends State<Ticket_Page> {
 
                 Row(
                   children: [
-                    Container(
-                      height: 400,
-                      width: 400,
-                        margin: EdgeInsets.only(left: 100, top: 60),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: Offset(5, 5),
-                            ),
-                            BoxShadow(
-                              color: Colors.white,
-                              offset: const Offset(0.0, 0.0),
-                              blurRadius: 0.0,
-                              spreadRadius: 0.0,
-                            ),
-                          ],
-                        ),
-                        child:
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
+                    GestureDetector(
+                        onTap: () {
+                              showDialog(context: context, builder: (context) => GetMap_Page(), barrierDismissible: false);
+                        },
+                        child: (
                             Container(
-                                margin: EdgeInsets.only(top: 20, left: 80, right: 80),
-                                height: 200,
-                                child: Image.asset("assets/maps.png")
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(top: 60),
-                                child: Text(
-                                  "Get Map",
-                                  style:
-                                  TextStyle(
-                                    decoration: TextDecoration.none,
-                                    color: Colors.black,
-                                  ),
-                                )
-                            ),
+                                height: 400,
+                                width: 400,
+                                margin: EdgeInsets.only(left: 100, top: 60),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey,
+                                      spreadRadius: 2,
+                                      blurRadius: 10,
+                                      offset: Offset(5, 5),
+                                    ),
+                                    BoxShadow(
+                                      color: Colors.white,
+                                      offset: const Offset(0.0, 0.0),
+                                      blurRadius: 0.0,
+                                      spreadRadius: 0.0,
+                                    ),
+                                  ],
+                                ),
+                                child:
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                        margin: EdgeInsets.only(top: 20, left: 80, right: 80),
+                                        height: 200,
+                                        child: Image.asset("assets/maps.png")
+                                    ),
+                                    Container(
+                                        margin: EdgeInsets.only(top: 60),
+                                        child: Text(
+                                          "Get Map",
+                                          style:
+                                          TextStyle(
+                                            decoration: TextDecoration.none,
+                                            color: Colors.black,
+                                          ),
+                                        )
+                                    ),
 
-                          ],
+                                  ],
+                                )
+                            )
                         )
                     ),
+
                     Container(
                         height: 400,
                         width: 400,
@@ -2796,7 +2738,7 @@ class _TicketState extends State<Ticket_Page> {
                             Container(
                                 margin: EdgeInsets.only(top: 40),
                                 child: Text(
-                                  "Direction",
+                                  "Guide to gate",
                                   style:
                                   TextStyle(
                                     decoration: TextDecoration.none,
@@ -2814,6 +2756,11 @@ class _TicketState extends State<Ticket_Page> {
 
                 Row(
                   children: [
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(context: context, builder: (context) => Weather_Page(), barrierDismissible: false);
+                      },
+                      child:
                     Container(
                         height: 400,
                         width: 400,
@@ -2867,6 +2814,7 @@ class _TicketState extends State<Ticket_Page> {
 
                           ],
                         )
+                    ),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -2934,6 +2882,74 @@ class _TicketState extends State<Ticket_Page> {
     );
   }
 }
+class GetMap_Page extends StatefulWidget {
+  @override
+  _GetMapState createState() => _GetMapState();
+}
+
+class _GetMapState extends State<GetMap_Page> {
+
+  @override
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+       content: Column(
+           mainAxisSize: MainAxisSize.min,
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: [
+             Container(
+                 width: 800,
+                 height: 600,
+                 margin: EdgeInsets.only(bottom: 30),
+                 child:
+                 Image.asset("assets/features.png")
+             ),
+        DottedBorder(
+          borderType: BorderType.RRect,
+          radius: Radius.circular(20),
+          color: Colors.blue,
+          strokeWidth: 10,
+          dashPattern: [6, 3, 2, 3],
+             child:
+             Container(
+               margin: EdgeInsets.only(left: 50, right: 50, top: 10, bottom: 10),
+                 decoration: BoxDecoration(
+                   color: Colors.white,
+                 ),
+                 child: Text("You can download this map by scanning QR code bellow",
+                          style: TextStyle(
+                           decoration: TextDecoration.none,
+                           color: Colors.black,
+                           fontSize: 40,
+                           fontWeight: FontWeight.bold,
+                         ),
+                      )
+                      ),
+             ),
+             Container(
+               height: 300,
+               width: 300,
+               margin: EdgeInsets.only(top: 50, bottom: 50),
+               child: Image.asset("assets/direction.png"),
+             ),
+                Container(
+                 width: 700,
+                 height: 100,
+                 child: ElevatedButton(
+                   child: Text("Back", style: TextStyle(
+                     fontSize: 30
+                   ),),
+                   onPressed: () {
+                     Navigator.pop(context);
+                   }
+                   ,
+                 ),
+               ),
+           ],
+         )
+    );
+  }
+}
 
 
 class Camera_Page extends StatefulWidget {
@@ -2988,6 +3004,176 @@ class _CameraState extends State<Camera_Page> {
             ),
           ],
         )
+    );
+  }
+}
+
+
+
+class SMS_Page extends StatefulWidget {
+  @override
+  _SMSState createState() => _SMSState();
+}
+
+class _SMSState extends State<SMS_Page> {
+
+  @override
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+                width: 800,
+                height: 600,
+                margin: EdgeInsets.only(bottom: 30),
+                child:
+                Image.asset("assets/features.png")
+            ),
+            DottedBorder(
+              borderType: BorderType.RRect,
+              radius: Radius.circular(20),
+              color: Colors.blue,
+              strokeWidth: 10,
+              dashPattern: [6, 3, 2, 3],
+              child:
+              Container(
+                  margin: EdgeInsets.only(left: 50, right: 50, top: 10, bottom: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: Text("You can download this map by scanning QR code bellow",
+                    style: TextStyle(
+                      decoration: TextDecoration.none,
+                      color: Colors.black,
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+              ),
+            ),
+            Container(
+              height: 300,
+              width: 300,
+              margin: EdgeInsets.only(top: 50, bottom: 50),
+              child: Image.asset("assets/direction.png"),
+            ),
+            Container(
+              width: 700,
+              height: 100,
+              child: ElevatedButton(
+                child: Text("Back", style: TextStyle(
+                    fontSize: 30
+                ),),
+                onPressed: () {
+                  Navigator.pop(context);
+                }
+                ,
+              ),
+            ),
+          ],
+        )
+    );
+  }
+}
+
+
+class Weather_Page extends StatefulWidget {
+  @override
+  _WeatherState createState() => _WeatherState();
+}
+
+class _WeatherState extends State<Weather_Page> {
+
+  var json;
+  Future<http.Response> getWeather(String city) async {
+    var url = Uri.parse('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=b8563a6551279ccbfe066c7f77dd3293&units=metric');
+    var response = await http.get(url,
+        headers: {"content-type": "application/json"});
+    return response;
+  }
+
+  FutureBuilder getWeatherContent(String city){
+
+    return FutureBuilder(builder: ( context , snapshot ) {
+      json = jsonDecode(snapshot.data.body);
+      log(json);
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                  child:
+                  Text(json['name'].toString() +", ", style: TextStyle(
+                    fontSize: 46,
+                  ),)
+              ),
+              Container(
+                  child:
+                  Text(json['sys']['country'].toString(), style: TextStyle(
+                    fontSize: 46,
+                  ),)
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                  margin: EdgeInsets.only(top: 50),
+                  child:
+                  Image.network("http://openweathermap.org/img/w/"+ json['weather'][0]['icon'].toString() + ".png")
+              ),
+              Container(
+                  margin: EdgeInsets.only(left: 20, top: 50),
+                  child:
+                  Text(json['weather'][0]['main'].toString()+", ", style: TextStyle(
+                    fontSize: 46,
+                  ),)
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 50),
+                  child:
+                  Text(json['main']['temp'].toString(), style: TextStyle(
+                    fontSize: 46,
+                  ),)
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 50),
+                  child:
+                  Text("°C", style: TextStyle(
+                    fontSize: 46,
+                  ),)
+              ),
+            ],
+          ),
+          Container(
+            width: 700,
+            height: 100,
+            child: ElevatedButton(
+              child: Text("Back", style: TextStyle(
+                  fontSize: 30
+              ),),
+              onPressed: () {
+                Navigator.pop(context);
+              }
+              ,
+            ),
+          ),
+        ],
+      );
+    },future: getWeather(city));
+  }
+  @override
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+        content: getWeatherContent('Tehran'),
     );
   }
 }

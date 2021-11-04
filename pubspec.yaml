@@ -76,6 +76,8 @@ flutter:
      - assets/toll.png
      - assets/flightslist.png
      - assets/forbiddenitems.png
+     - assets/welcome-icegif.gif
+     - assets/sms.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
