@@ -1,4 +1,6 @@
 
+import 'package:aicell/pages/SnappModal.dart';
+import 'package:aicell/pages/TollModal.dart';
 import 'package:aicell/widgets/Header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +36,11 @@ class _ServicesState extends State<Services_Page> {
                   children: [
                     Column(
                       children: [
+                GestureDetector(
+                onTap: () {
+                 showDialog(context: context, builder: (context) => SnappModal_Page(), barrierDismissible: false);
+                          },
+                      child:
                         Container(
                           margin: EdgeInsets.only(left: 40, top: 60),
                           height: 500,
@@ -78,6 +85,7 @@ class _ServicesState extends State<Services_Page> {
                             ],
                           ),
                         ),
+                )
                       ],
                     ),
 
@@ -147,10 +155,7 @@ class _ServicesState extends State<Services_Page> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Ticket_Page()),
-                            );
+                            showDialog(context: context, builder: (context) => TollModal_Page(), barrierDismissible: false);
                           },
                           child:
                           Container(
