@@ -1,10 +1,13 @@
+import 'package:aicell/components/ActivityTimer.dart';
 import 'package:aicell/connections/HttpConnector.dart';
+import 'package:aicell/widgets/Header.dart';
 import 'package:analog_clock/analog_clock.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persian_fonts/persian_fonts.dart';
-import '../connections/NatsConnector.dart';
+import '../connections/CoreConnector.dart';
 import '../States.dart';
+import '../main.dart';
 
 class Languages_Page extends StatefulWidget {
   @override
@@ -16,6 +19,8 @@ class _LanguagesState extends State<Languages_Page> {
 
   @override
   Widget build(BuildContext context) {
+    ActivityTimer.context = context;
+    ActivityTimer.instance.resetTimer();
     return Container(
       decoration: BoxDecoration(
         image: const DecorationImage(
@@ -26,84 +31,7 @@ class _LanguagesState extends State<Languages_Page> {
       height: 1920,
       child: Column(
         children: [
-          Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xff0358cd),
-                    Color(0xff4286fb),
-                  ],
-                ),
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(150),
-                  bottomLeft: Radius.circular(150),
-                ),
-                border: Border.all(
-                  width: 1,
-                  color: Colors.transparent,
-                )
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                    decoration: BoxDecoration(
-
-                    ),
-                    margin: EdgeInsets.only(top: 40, left: 40),
-                    child:
-                    Column(
-                      children: [
-                        Text(
-                          "Good Evening",
-                          style: TextStyle(
-                              decoration: TextDecoration.none,
-                              fontSize: 45,
-                              color: Colors.white
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 30, bottom: 20),
-                          child: Text("  Welcome to AICell",
-                            style: TextStyle(
-                                decoration: TextDecoration.none,
-                                fontSize: 35,
-                                color: Colors.white
-                            ),),
-                        ),
-                      ],
-                    )
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 200, top: 20, bottom: 20),
-                  height: 400,
-                  child:
-                  AnalogClock(
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 2.0, color: Colors.black),
-                        color: Colors.black,
-                        shape: BoxShape.circle),
-                    width: 400,
-                    isLive: true,
-                    hourHandColor: Colors.white,
-                    minuteHandColor: Colors.white,
-                    showSecondHand: true,
-                    secondHandColor: Colors.red,
-                    numberColor: Color(0xfffcb813),
-                    showNumbers: true,
-                    textScaleFactor: 1.4,
-                    showTicks: true,
-                    tickColor: Color(0xfffcb813),
-                    showDigitalClock: false,
-                    datetime: DateTime(2019, 1, 1, 9, 12, 15),
-                  ),
-                )
-              ],
-            ),
-          ),
-
+          Header(),
           Container(
             height: 1478,
             child: Column(
@@ -139,10 +67,12 @@ class _LanguagesState extends State<Languages_Page> {
                     GestureDetector(
                       onTap: () {
                         States.instance.language = "English";
-                        languageSelected("English").then((value) {
-                          if(value.statusCode ==200)
-                            NatsConnector.instance.changeUIStateToCore("alpha");
-                        });
+                        // languageSelected(States.instance.language).then((value) {
+                        //   if(value.statusCode ==200) {
+                            AiCell.of(context).setLocale(Locale('en'));
+                            CoreConnector.instance.changeUIStateToCore("alpha");
+                        //   }
+                        // });
                       },
                       child:
                       Container(
@@ -192,10 +122,12 @@ class _LanguagesState extends State<Languages_Page> {
                     GestureDetector(
                       onTap: () {
                         States.instance.language = "Farsi";
-                        languageSelected("Farsi").then((value) {
-                          if(value.statusCode ==200)
-                            NatsConnector.instance.changeUIStateToCore("alpha");
-                        });
+                        // languageSelected(States.instance.language).then((value) {
+                        //   if(value.statusCode ==200) {
+                            CoreConnector.instance.changeUIStateToCore("alpha");
+                            AiCell.of(context).setLocale(Locale('fa'));
+                        //   }
+                        // });
                       },
                       child: Container(
                           margin: EdgeInsets.only(left: 150, top: 80),

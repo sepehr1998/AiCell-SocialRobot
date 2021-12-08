@@ -1,3 +1,4 @@
+import 'package:aicell/components/ActivityTimer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,8 @@ class _FlightListState extends State<FlightList_Page> {
   @override
   @override
   Widget build(BuildContext context) {
+    ActivityTimer.context = context;
+    ActivityTimer.instance.resetTimer();
     return AlertDialog(
         content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -21,7 +24,7 @@ class _FlightListState extends State<FlightList_Page> {
                   height: 50,
                   width: 200,
                   child:
-                  Text("Flights List",
+                  Text("Flight List",
                     style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold

@@ -1,7 +1,14 @@
 
+import 'dart:developer';
+
+import 'package:aicell/components/ActivityTimer.dart';
+import 'package:aicell/connections/HttpConnector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'dart:html' as html;
+
 
 class Rating_Page extends StatefulWidget {
   @override
@@ -10,9 +17,12 @@ class Rating_Page extends StatefulWidget {
 enum SingingCharacter { opening, closing }
 class _RatingState extends State<Rating_Page> {
   SingingCharacter _character = SingingCharacter.opening;
+  double _rating;
   @override
   @override
   Widget build(BuildContext context) {
+    ActivityTimer.context = context;
+    ActivityTimer.instance.resetTimer();
     return AlertDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -25,7 +35,7 @@ class _RatingState extends State<Rating_Page> {
                   height: 100,
                   width: 400,
                   child: Text(
-                    "Please give us your feedback",
+                    AppLocalizations.of(context).feedBackTxt,
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -55,7 +65,7 @@ class _RatingState extends State<Rating_Page> {
                       color: Colors.amber,
                     ),
                     onRatingUpdate: (rating) {
-                      print(rating);
+                      _rating = rating;
                     },
                   )
                 ),
@@ -65,14 +75,22 @@ class _RatingState extends State<Rating_Page> {
               width: 700,
               height: 100,
               child: ElevatedButton(
-                child: Text("Send", style: TextStyle(
+                child: Text(AppLocalizations.of(context).sendBtn, style: TextStyle(
                     fontSize: 30
                 ),),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.green,
                 ),
                 onPressed: () {
-                  Navigator.pop(context);
+                  sendFeedback(_rating.toInt()).then((value) {
+                    if(value.statusCode== 200){
+                      html.window.location.reload();
+                    }
+                    else{
+                      log("no good answer from core");
+                      log(value.body);
+                    }
+                  });
                 }
                 ,
               ),
@@ -81,7 +99,7 @@ class _RatingState extends State<Rating_Page> {
               width: 700,
               height: 100,
               child: ElevatedButton(
-                child: Text("Back", style: TextStyle(
+                child: Text(AppLocalizations.of(context).backBtn, style: TextStyle(
                     fontSize: 30
                 ),),
                 onPressed: () {

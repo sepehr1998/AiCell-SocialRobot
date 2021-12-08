@@ -1,0 +1,26 @@
+{
+    "whatCanIDo": "What Can I Do?",
+    "@whatCanIDo": {
+      "description": "The question from the client"
+    },
+    "welcome": "Welcome to AICell",
+    "@welcome": {
+        "description": "The Welcome Text on the header"
+    },
+    "endSessionBtn": "End Session",
+    "@endSessionBtn": {
+        "description": "The Button That ends the Session"
+    },
+    "feedBackTxt": "Please give us your feedback",
+    "@feedBackTxt": {
+        "description": "Text for Feedback Page"
+    },
+    "sendBtn": "Send",
+    "@sendBtn": {
+        "description": "Button Send for Feedback Page"
+    },
+    "backBtn": "Back",
+    "@backBtn": {
+        "description": "Button Back for Feedback Page"
+    }
+}

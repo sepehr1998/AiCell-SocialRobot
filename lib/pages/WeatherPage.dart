@@ -1,25 +1,23 @@
 
 import 'dart:convert';
 
+import 'package:aicell/components/ActivityTimer.dart';
 import 'package:aicell/connections/HttpConnector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 
-class Weather_Page extends StatefulWidget {
-  @override
-  _WeatherState createState() => _WeatherState();
-}
+class Weather_Page extends StatelessWidget {
 
-class _WeatherState extends State<Weather_Page> {
+  const Weather_Page({Key key, this.cityName}) : super(key: key);
 
-  var json;
+  final String cityName;
 
   FutureBuilder getWeatherContent(String city){
 
     return FutureBuilder(builder: ( context , snapshot ) {
-      json = jsonDecode(snapshot.data);
+      var json = jsonDecode(snapshot.data);
       return Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -102,11 +100,13 @@ class _WeatherState extends State<Weather_Page> {
 
     }),);
   }
-  @override
+
   @override
   Widget build(BuildContext context) {
+    ActivityTimer.context = context;
+    ActivityTimer.instance.resetTimer();
     return AlertDialog(
-      content: getWeatherContent('Tehran'),
+      content: getWeatherContent(cityName),
     );
   }
 }

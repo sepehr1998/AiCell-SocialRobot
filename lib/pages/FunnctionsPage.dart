@@ -1,11 +1,15 @@
+import 'dart:developer';
+
+import 'package:aicell/components/ActivityTimer.dart';
 import 'package:aicell/widgets/Header.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../connections/NatsConnector.dart';
+import '../connections/CoreConnector.dart';
 import 'InformationPage.dart';
 import 'PlacesPage.dart';
 import 'ServicesPage.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class Functions_Page extends StatefulWidget {
@@ -16,6 +20,8 @@ class Functions_Page extends StatefulWidget {
 class _FunctionsState extends State<Functions_Page> {
   @override
   Widget build(BuildContext context) {
+    ActivityTimer.context = context;
+    ActivityTimer.instance.resetTimer();
     return Container(
       decoration: BoxDecoration(
         image: const DecorationImage(
@@ -49,7 +55,7 @@ class _FunctionsState extends State<Functions_Page> {
                                 Container(
                                   margin: EdgeInsets.only(bottom: 20, left: 20, right: 20, top: 5),
                                   child:
-                                  Text("What Can I Do?",
+                                  Text(AppLocalizations.of(context).whatCanIDo,
                                     style: TextStyle(
                                       decoration: TextDecoration.none,
                                       color: Color(0xff0358cd),
@@ -63,6 +69,8 @@ class _FunctionsState extends State<Functions_Page> {
                         ),
                         GestureDetector(
                           onTap: () {
+                            ActivityTimer.instance.resetTimer();
+                            CoreConnector.instance.changeUIStateToCore("sevice_page");
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => Services_Page()),
@@ -132,6 +140,8 @@ class _FunctionsState extends State<Functions_Page> {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            ActivityTimer.instance.resetTimer();
+                            CoreConnector.instance.changeUIStateToCore("places_page");
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => Places_Page()),
@@ -191,7 +201,8 @@ class _FunctionsState extends State<Functions_Page> {
                       children: [
                         GestureDetector(
                           onTap: (){
-                            NatsConnector.instance.changeUIStateToCore("ticket");
+                            ActivityTimer.instance.resetTimer();
+                            CoreConnector.instance.changeUIStateToCore("ticket");
                           },
                           child:
                           Container(
@@ -249,6 +260,8 @@ class _FunctionsState extends State<Functions_Page> {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            ActivityTimer.instance.resetTimer();
+                            CoreConnector.instance.changeUIStateToCore("information_page");
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => Information_Page()),

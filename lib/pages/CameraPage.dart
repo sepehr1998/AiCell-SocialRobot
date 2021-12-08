@@ -1,8 +1,9 @@
 
+import 'package:aicell/components/ActivityTimer.dart';
 import 'package:easy_web_view/easy_web_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../connections/NatsConnector.dart';
+import '../connections/CoreConnector.dart';
 
 
 
@@ -16,6 +17,8 @@ class _CameraState extends State<Camera_Page> {
   @override
   @override
   Widget build(BuildContext context) {
+    ActivityTimer.context = context;
+    ActivityTimer.instance.resetTimer();
     return Container(
         width: 700,
         height: 700,
@@ -49,7 +52,7 @@ class _CameraState extends State<Camera_Page> {
                 child: ElevatedButton(
                   child: Text("بازگشت"),
                   onPressed: () {
-                    NatsConnector.instance.changeUIStateToCore("alpha");
+                    CoreConnector.instance.changeUIStateToCore("alpha");
                   }
                   ,
                 ),

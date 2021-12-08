@@ -1,10 +1,13 @@
 import 'package:dart_nats/dart_nats.dart';
+import 'package:aicell/connections/HttpConnector.dart';
+import 'package:flutter/cupertino.dart';
 
-
-class NatsConnector {
-  static NatsConnector _instance = NatsConnector._();
+class CoreConnector {
+  static CoreConnector _instance = CoreConnector._();
 
   String _state = "start";
+
+  Locale _locale = Locale('en');
 
   var _client = Client();
 
@@ -12,23 +15,30 @@ class NatsConnector {
 
   String get state => _state;
 
-  NatsConnector._();
+  CoreConnector._();
 
   set state(String state){
     _state = state;
   }
 
-  static NatsConnector get instance => _instance ??= NatsConnector._();
+  set locale(Locale locale){
+    _locale = locale;
+  }
+
+  static CoreConnector get instance => _instance ??= CoreConnector._();
 
 
   void sendUIStateToCore(String state){
     client.pubString('UI2CORE', state);
+    // setUIState(state);
   }
 
 
   void changeUIStateToCore(String state){
     _state = state;
+    // setUIState(_state);
     client.pubString('UI2CORE', state);
+
   }
 
 

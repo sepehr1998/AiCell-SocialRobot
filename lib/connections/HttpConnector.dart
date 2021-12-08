@@ -22,7 +22,14 @@ Future<http.Response> getPlaces() async {
 }
 
 Future<String> getWeather(String city) async {
-  var url = Uri.parse('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=b8563a6551279ccbfe066c7f77dd3293&units=metric');
+  var url = Uri.parse('http://localhost:8000/weather?q=' + city + '&appid=b8563a6551279ccbfe066c7f77dd3293&units=metric');
+  var response = await http.get(url,
+      headers: {"content-type": "application/json"});
+  return response.body;
+}
+
+Future<String> goToGateCommand(String gateName) async {
+  var url = Uri.parse('http://localhost:5002/go_to?name='+ gateName);
   var response = await http.get(url,
       headers: {"content-type": "application/json"});
   return response.body;
@@ -57,6 +64,17 @@ Future<http.Response> getPlaceTypes() async {
   var url = Uri.parse('http://localhost:5002/place_types');
   var response = await http.get(url,
       headers: {"content-type": "application/json"});
+  return response;
+}
+
+Future<http.Response> changePlaceMap(double curntX,double curnty,double destX,double destY) async {
+  var url = Uri.parse('http://localhost:8000/QR_CODE?'+
+      'loc=('+ curntX.toString() +','+curnty.toString()+')'+
+      '&dis=('+ destX.toString() +','+destY.toString()+')');
+  var response = await http.get(url,
+      headers: {"content-type": "application/json",
+                "x-access-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIwZGFkYTA2Zi0zZjkwLTRlZDQtYmM5NS01MDFmNDM1MzcwZWQiLCJleHAiOjI1MzQwMjMwMDc5OX0.rxTermTn3Utv-TY2EsBZtuMf7uaGdcM8RKKLwA7amQ8"
+  });
   return response;
 }
 

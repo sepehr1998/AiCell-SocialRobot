@@ -1,3 +1,4 @@
+import 'package:aicell/components/ActivityTimer.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:easy_web_view/easy_web_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,6 +15,8 @@ class _SnappModalState extends State<SnappModal_Page> {
   @override
   @override
   Widget build(BuildContext context) {
+    ActivityTimer.context = context;
+    ActivityTimer.instance.resetTimer();
     return AlertDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,

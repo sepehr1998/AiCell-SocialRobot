@@ -8,37 +8,47 @@ import 'package:aicell/pages/PlacesPage.dart';
 import 'package:aicell/pages/ServicesPage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import './connections/NatsConnector.dart';
+import './connections/CoreConnector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 void main() {
-  NatsConnector.instance.connect();
+  CoreConnector.instance.connect();
   runApp(AiCell());
 }
 
 class AiCell extends StatefulWidget {
   @override
   _AiCellState createState() => _AiCellState();
+
+  static _AiCellState of(BuildContext context) => context.findAncestorStateOfType<_AiCellState>();
 }
 
 class _AiCellState extends State<AiCell> {
 
+  Locale _locale = Locale('en');
+
+  void setLocale(Locale value) {
+    setState(() {
+      _locale = value;
+    });
+  }
 
   @override
-  Widget build(BuildContext context
-      ) {
+  Widget build(BuildContext context) {
     return
       MaterialApp(
           debugShowCheckedModeBanner: false,
           initialRoute: '/',
+          locale: _locale,
           localizationsDelegates: [
+            GlobalCupertinoLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
+            AppLocalizations.delegate
           ],
           supportedLocales: [
             Locale('en', ''),
@@ -52,26 +62,11 @@ class _AiCellState extends State<AiCell> {
             '/fifth': (context) => Information_Page(),
             '/sixth': (context) => Places_Page(),
           },
-          home: face());
+          home:
+          Directionality(
+            textDirection: TextDirection.ltr,
+            child: face())
+          );
+
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

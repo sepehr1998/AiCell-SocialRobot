@@ -1,6 +1,8 @@
 
 import 'dart:convert';
 
+import 'package:aicell/components/ActivityTimer.dart';
+import 'package:aicell/connections/HttpConnector.dart';
 import 'package:aicell/pages/MapPage.dart';
 import 'package:aicell/pages/SMSPage.dart';
 import 'package:aicell/pages/WeatherPage.dart';
@@ -17,6 +19,8 @@ class Ticket_Page extends StatefulWidget {
 
 class _TicketState extends State<Ticket_Page> {
   var json;
+
+
 
   FutureBuilder getTicket(){
     return FutureBuilder(builder: (context , snapshot) {
@@ -371,6 +375,8 @@ class _TicketState extends State<Ticket_Page> {
 
   @override
   Widget build(BuildContext context) {
+    ActivityTimer.context = context;
+    ActivityTimer.instance.resetTimer();
     return Container(
       decoration: BoxDecoration(
         image: const DecorationImage(
@@ -442,8 +448,11 @@ class _TicketState extends State<Ticket_Page> {
                             )
                         )
                     ),
-
-                    Container(
+                    GestureDetector(
+                      onTap: () {
+                        goToGateCommand(json['gate']);
+                      },
+                    child:Container(
                         height: 400,
                         width: 400,
                         margin: EdgeInsets.only(left: 100, top: 10),
@@ -495,7 +504,7 @@ class _TicketState extends State<Ticket_Page> {
 
                           ],
                         )
-                    ),
+                    )),
                   ],
                 ),
 
@@ -504,7 +513,7 @@ class _TicketState extends State<Ticket_Page> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        showDialog(context: context, builder: (context) => Weather_Page(), barrierDismissible: false);
+                        showDialog(context: context, builder: (context) => Weather_Page(cityName: 'Tehran',), barrierDismissible: false);
                       },
                       child:
                       Container(

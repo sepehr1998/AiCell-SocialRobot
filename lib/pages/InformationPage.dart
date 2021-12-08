@@ -1,3 +1,4 @@
+import 'package:aicell/components/ActivityTimer.dart';
 import 'package:aicell/widgets/Header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ class Information_Page extends StatefulWidget {
 class _InformationState extends State<Information_Page> {
   @override
   Widget build(BuildContext context) {
+    ActivityTimer.context = context;
+    ActivityTimer.instance.resetTimer();
     return Container(
       decoration: BoxDecoration(
         image: const DecorationImage(

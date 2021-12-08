@@ -1,4 +1,5 @@
 
+import 'package:aicell/components/ActivityTimer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,9 +10,11 @@ class SMS_Page extends StatefulWidget {
 enum SingingCharacter { opening, closing }
 class _SMSState extends State<SMS_Page> {
   SingingCharacter _character = SingingCharacter.opening;
-  @override
+
   @override
   Widget build(BuildContext context) {
+    ActivityTimer.context = context;
+    ActivityTimer.instance.resetTimer();
     return AlertDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,

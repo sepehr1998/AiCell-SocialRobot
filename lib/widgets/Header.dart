@@ -1,10 +1,11 @@
 
 
+import 'package:aicell/connections/CoreConnector.dart';
 import 'package:analog_clock/analog_clock.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:aicell/pages/RatingPage.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Header extends StatelessWidget{
 
@@ -41,17 +42,9 @@ class Header extends StatelessWidget{
               child:
               Column(
                 children: [
-                  Text(
-                    "Good Evening",
-                    style: TextStyle(
-                        decoration: TextDecoration.none,
-                        fontSize: 45,
-                        color: Colors.white
-                    ),
-                  ),
                   Container(
                     margin: EdgeInsets.only(top: 30, bottom: 20),
-                    child: Text("  Welcome to AICell",
+                    child: Text(AppLocalizations.of(context).welcome,
                       style: TextStyle(
                           decoration: TextDecoration.none,
                           fontSize: 35,
@@ -63,10 +56,11 @@ class Header extends StatelessWidget{
                     width: 200,
                     height: 100,
                     child: ElevatedButton(
-                      child: Text("End Session", style: TextStyle(
+                      child: Text(AppLocalizations.of(context).endSessionBtn, style: TextStyle(
                           fontSize: 30
                       ),),
                       onPressed: () {
+                        CoreConnector.instance.changeUIStateToCore("goodbye");
                         showDialog(context: context, builder: (context) => Rating_Page(), barrierDismissible: false);
                       },
                       style: ElevatedButton.styleFrom(

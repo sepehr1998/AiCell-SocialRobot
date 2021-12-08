@@ -1,4 +1,5 @@
 
+import 'package:aicell/components/ActivityTimer.dart';
 import 'package:aicell/pages/SnappModal.dart';
 import 'package:aicell/pages/TollModal.dart';
 import 'package:aicell/widgets/Header.dart';
@@ -17,6 +18,8 @@ class Services_Page extends StatefulWidget {
 class _ServicesState extends State<Services_Page> {
   @override
   Widget build(BuildContext context) {
+    ActivityTimer.context = context;
+    ActivityTimer.instance.resetTimer();
     return Container(
       decoration: BoxDecoration(
         image: const DecorationImage(
