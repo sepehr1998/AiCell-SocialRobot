@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GetMap_Page extends StatelessWidget {
 
@@ -58,7 +58,7 @@ class GetMap_Page extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                   ),
-                  child: Text("You can download this map by scanning QR code bellow",
+                  child: Text(AppLocalizations.of(context).getMapText,
                     style: TextStyle(
                       decoration: TextDecoration.none,
                       color: Colors.black,

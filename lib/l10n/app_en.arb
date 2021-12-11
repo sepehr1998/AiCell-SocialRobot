@@ -22,5 +22,28 @@
     "backBtn": "Back",
     "@backBtn": {
         "description": "Button Back for Feedback Page"
-    }
+    },
+    "flightListTitle": "Flight List",
+    "flightListRow": "Row No.",
+    "flightListAirline": "Airline",
+    "flightListFrom": "From",
+    "flightListTo": "To",
+    "flightListTime": "Time",
+    "flightListStatus": "Status",
+    "servicesButton": "Services",
+    "placesButton": "Places",
+    "ticketScanButton": "Ticket Scan",
+    "informationButton": "Information",
+    "flightListButton": "Flights List",
+    "forbiddenItemsButton": "Forbidden Items",
+    "getMapText": "You can download this map by scanning QR code bellow",
+    "baggageReclaim": "Baggage Reclaim",
+    "exchange": "Exchange",
+    "toll": "Toll",
+    "wc": "WC",
+    "cr": "Cafe & Restaurant",
+    "shopping": "Shopping",
+    "checkin": "Check In",
+    "gates": "Gates",
+    "passport": "Passport Control"
 }

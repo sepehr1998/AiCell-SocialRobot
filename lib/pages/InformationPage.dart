@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'FlightListPage.dart';
 import 'ForbiddenItemsPage.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 
@@ -74,7 +75,7 @@ class _InformationState extends State<Information_Page> {
                                     margin: EdgeInsets.only(top: 50),
                                     child:
                                     Text(
-                                      "Flights List",
+                                      AppLocalizations.of(context).flightListButton,
                                       style: TextStyle(
                                         decoration: TextDecoration.none,
                                         fontSize: 45,
@@ -136,7 +137,7 @@ class _InformationState extends State<Information_Page> {
                                 Container(
                                     child:
                                     Text(
-                                      "Forbidden Items",
+                                      AppLocalizations.of(context).forbiddenItemsButton,
                                       style: TextStyle(
                                         decoration: TextDecoration.none,
                                         fontSize: 45,
@@ -203,7 +204,7 @@ class _InformationState extends State<Information_Page> {
                                 Container(
                                     child:
                                     Text(
-                                      "Back",
+                                      AppLocalizations.of(context).backBtn,
                                       style: TextStyle(
                                         decoration: TextDecoration.none,
                                         fontSize: 45,

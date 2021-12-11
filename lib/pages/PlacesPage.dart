@@ -13,7 +13,7 @@ import 'package:aicell/widgets/WhitePlaceButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Places_Page extends StatefulWidget {
   @override
@@ -90,7 +90,7 @@ class _PlacesState extends State<Places_Page> {
                       onTap: () {
                         updateAndGetMap("baggage");
                       },
-                      child: BluePlaceButton(label: "Baggage Reclaim",
+                      child: BluePlaceButton(label: AppLocalizations.of(context).baggageReclaim,
                         margin: EdgeInsets.only(left: 40, top: 50),
                       )
                     ),
@@ -98,7 +98,7 @@ class _PlacesState extends State<Places_Page> {
                       onTap: () {
                         updateAndGetMap("exchange");
                       },
-                      child: WhitePlaceButton(label: "Exchange",
+                      child: WhitePlaceButton(label: AppLocalizations.of(context).exchange,
                         margin: EdgeInsets.only(left: 80, top: 50),
                       ),
                     ),
@@ -110,7 +110,7 @@ class _PlacesState extends State<Places_Page> {
                       onTap: () {
                         updateAndGetMap("toll");
                       },
-                      child:WhitePlaceButton(label: "Toll",
+                      child:WhitePlaceButton(label: AppLocalizations.of(context).toll,
                       margin: EdgeInsets.only(left: 40, top: 50),
                      ),
                     ),
@@ -119,7 +119,7 @@ class _PlacesState extends State<Places_Page> {
                       onTap: () {
                         updateAndGetMap("wc");
                       },
-                      child:BluePlaceButton(label: "WC",
+                      child:BluePlaceButton(label: AppLocalizations.of(context).wc,
                       margin: EdgeInsets.only(left: 80, top: 50),
                       ),
                     ),
@@ -132,7 +132,7 @@ class _PlacesState extends State<Places_Page> {
                       onTap: () {
                         updateAndGetMap("cafe");
                       },
-                      child:BluePlaceButton(label: "Cafe & Restaurant",
+                      child:BluePlaceButton(label: AppLocalizations.of(context).cr,
                       margin: EdgeInsets.only(left: 40, top: 50),
                       ),
                     ),
@@ -140,7 +140,7 @@ class _PlacesState extends State<Places_Page> {
                       onTap: () {
                         updateAndGetMap("shop");
                       },
-                      child:WhitePlaceButton(label: "Shopping",
+                      child:WhitePlaceButton(label: AppLocalizations.of(context).shopping,
                       margin: EdgeInsets.only(left: 80, top: 50),
                       ),
                     ),
@@ -152,7 +152,7 @@ class _PlacesState extends State<Places_Page> {
                       onTap: () {
                         updateAndGetMap("check_in");
                       },
-                      child:WhitePlaceButton(label: "Check-in",
+                      child:WhitePlaceButton(label: AppLocalizations.of(context).checkin,
                       margin: EdgeInsets.only(left: 40, top: 50),
                       ),
                     ),
@@ -161,7 +161,7 @@ class _PlacesState extends State<Places_Page> {
                       onTap: () {
                         updateAndGetMap("gate");
                       },
-                      child:BluePlaceButton(label: "Gates",
+                      child:BluePlaceButton(label: AppLocalizations.of(context).gates,
                       margin: EdgeInsets.only(left: 80, top: 50),
                      ),
                     ),
@@ -173,7 +173,7 @@ class _PlacesState extends State<Places_Page> {
                       onTap: () {
                         updateAndGetMap("passport_control");
                       },
-                      child:BluePlaceButton(label: "Passport Control",
+                      child:BluePlaceButton(label: AppLocalizations.of(context).passport,
                       margin: EdgeInsets.only(left: 40, top: 50),
                       ),
                     ),

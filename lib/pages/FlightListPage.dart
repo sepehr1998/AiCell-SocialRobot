@@ -1,6 +1,7 @@
 import 'package:aicell/components/ActivityTimer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class FlightList_Page extends StatefulWidget {
@@ -24,7 +25,7 @@ class _FlightListState extends State<FlightList_Page> {
                   height: 50,
                   width: 200,
                   child:
-                  Text("Flight List",
+                  Text(AppLocalizations.of(context).flightListTitle,
                     style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold
@@ -52,7 +53,7 @@ class _FlightListState extends State<FlightList_Page> {
                                   margin: EdgeInsets.only(right: 25, left: 40),
                                   child:
                                   Text(
-                                    "Row No.",
+                                    AppLocalizations.of(context).flightListRow,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 24,
@@ -63,7 +64,7 @@ class _FlightListState extends State<FlightList_Page> {
                                   margin: EdgeInsets.only(right: 40),
                                   child:
                                   Text(
-                                    "Airline",
+                                    AppLocalizations.of(context).flightListAirline,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 24,
@@ -74,7 +75,7 @@ class _FlightListState extends State<FlightList_Page> {
                                   margin: EdgeInsets.only(right: 40),
                                   child:
                                   Text(
-                                    "From",
+                                    AppLocalizations.of(context).flightListFrom,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 24,
@@ -85,7 +86,7 @@ class _FlightListState extends State<FlightList_Page> {
                                   margin: EdgeInsets.only(right: 40),
                                   child:
                                   Text(
-                                    "To",
+                                    AppLocalizations.of(context).flightListTo,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 24,
@@ -96,7 +97,7 @@ class _FlightListState extends State<FlightList_Page> {
                                   margin: EdgeInsets.only(right: 40),
                                   child:
                                   Text(
-                                    "Flight Time",
+                                    AppLocalizations.of(context).flightListTime,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 24,
@@ -107,7 +108,7 @@ class _FlightListState extends State<FlightList_Page> {
                                   margin: EdgeInsets.only(right: 40),
                                   child:
                                   Text(
-                                    "Status",
+                                    AppLocalizations.of(context).flightListStatus,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 24,

@@ -118,7 +118,7 @@ class _FunctionsState extends State<Functions_Page> {
                                     margin: EdgeInsets.only(top: 50),
                                     child:
                                     Text(
-                                      "Services",
+                                      AppLocalizations.of(context).servicesButton,
                                       style: TextStyle(
                                         decoration: TextDecoration.none,
                                         fontSize: 45,
@@ -179,7 +179,7 @@ class _FunctionsState extends State<Functions_Page> {
                                 Container(
                                     child:
                                     Text(
-                                      "Places",
+                                      AppLocalizations.of(context).placesButton,
                                       style: TextStyle(
                                         decoration: TextDecoration.none,
                                         fontSize: 45,
@@ -238,7 +238,7 @@ class _FunctionsState extends State<Functions_Page> {
                                     margin: EdgeInsets.only(top: 100),
                                     child:
                                     Text(
-                                      "Ticket Scan",
+                                      AppLocalizations.of(context).ticketScanButton,
                                       style: TextStyle(
                                         decoration: TextDecoration.none,
                                         fontSize: 45,
@@ -309,7 +309,7 @@ class _FunctionsState extends State<Functions_Page> {
                                     margin: EdgeInsets.only(top: 100),
                                     child:
                                     Text(
-                                      "Information",
+                                      AppLocalizations.of(context).informationButton,
                                       style: TextStyle(
                                         decoration: TextDecoration.none,
                                         fontSize: 45,
