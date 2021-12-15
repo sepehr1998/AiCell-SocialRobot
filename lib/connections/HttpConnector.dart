@@ -42,6 +42,13 @@ Future<http.Response> getState() async {
   return response;
 }
 
+Future<http.Response> getHotels(String query) async {
+  var url = Uri.parse('https://ws.alibaba.ir/api/v2/hotel/suggest?query='+query);
+  var response = await http.get(url,
+      headers: {"content-type": "application/json"});
+  return response;
+}
+
 Future<http.Response> setUIState(String state) async {
   var url = Uri.parse('http://localhost:5002/get_ui_state');
   var response = await http.post(url,

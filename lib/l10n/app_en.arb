@@ -45,5 +45,10 @@
     "shopping": "Shopping",
     "checkin": "Check In",
     "gates": "Gates",
-    "passport": "Passport Control"
+    "passport": "Passport Control",
+    "customs": "Customs",
+    "parking": "Parking",
+    "prayingRoom": "Praying Room",
+    "stairs": "Stairs",
+    "elevator": "Elevator"
 }

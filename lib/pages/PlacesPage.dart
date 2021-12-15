@@ -181,7 +181,7 @@ class _PlacesState extends State<Places_Page> {
                       onTap: () {
                         updateAndGetMap("customs");
                       },
-                      child:WhitePlaceButton(label: "Customs",
+                      child:WhitePlaceButton(label: AppLocalizations.of(context).customs,
                       margin: EdgeInsets.only(left: 80, top: 50),
                       ),
                     ),
@@ -194,7 +194,7 @@ class _PlacesState extends State<Places_Page> {
                       onTap: () {
                         updateAndGetMap("parking");
                       },
-                      child:WhitePlaceButton(label: "Parking",
+                      child:WhitePlaceButton(label: AppLocalizations.of(context).parking,
                       margin: EdgeInsets.only(left: 40, top: 50),
                       )  ,
                     ),
@@ -202,7 +202,7 @@ class _PlacesState extends State<Places_Page> {
                       onTap: () {
                         updateAndGetMap("praying_room");
                       },
-                      child:BluePlaceButton(label: "Praying Room",
+                      child:BluePlaceButton(label: AppLocalizations.of(context).prayingRoom,
                       margin: EdgeInsets.only(left: 80, top: 50),
                       ),
                     ),
@@ -214,7 +214,7 @@ class _PlacesState extends State<Places_Page> {
                       onTap: () {
                         updateAndGetMap("stair");
                       },
-                      child:BluePlaceButton(label: "Stairs",
+                      child:BluePlaceButton(label: AppLocalizations.of(context).stairs,
                         margin: EdgeInsets.only(left: 40, top: 50),
                       ),
                     ),
@@ -222,7 +222,7 @@ class _PlacesState extends State<Places_Page> {
                       onTap: () {
                         updateAndGetMap("elevator");
                       },
-                      child:WhitePlaceButton(label: "Elevator",
+                      child:WhitePlaceButton(label: AppLocalizations.of(context).elevator,
                         margin: EdgeInsets.only(left: 80, top: 50),
                       ),
                     ),
@@ -278,7 +278,7 @@ class _PlacesState extends State<Places_Page> {
                                 Container(
                                     child:
                                     Text(
-                                      "Back",
+                                      AppLocalizations.of(context).backBtn,
                                       style: TextStyle(
                                         decoration: TextDecoration.none,
                                         fontSize: 45,

@@ -1,5 +1,6 @@
 
 import 'package:aicell/components/ActivityTimer.dart';
+import 'package:aicell/pages/HotelFieldsPage.dart';
 import 'package:aicell/pages/SnappModal.dart';
 import 'package:aicell/pages/TollModal.dart';
 import 'package:aicell/widgets/Header.dart';
@@ -97,6 +98,11 @@ class _ServicesState extends State<Services_Page> {
 
                     Column(
                       children: [
+                        GestureDetector(
+                          onTap: () {
+                            showDialog(context: context, builder: (context) => HotelFields(), barrierDismissible: false);
+                          },
+                          child:
                         Container(
                           height: 500,
                           width: 450,
@@ -148,6 +154,7 @@ class _ServicesState extends State<Services_Page> {
                             ],
                           ),
                         ),
+                        )
                       ],
                     ),
                   ],
