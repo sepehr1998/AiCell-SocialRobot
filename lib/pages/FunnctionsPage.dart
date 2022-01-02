@@ -73,7 +73,7 @@ class _FunctionsState extends State<Functions_Page> {
                             CoreConnector.instance.changeUIStateToCore("sevice_page");
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Services_Page()),
+                              MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.ltr, child:Services_Page())),
                             );
                           },
                           child:
@@ -144,7 +144,7 @@ class _FunctionsState extends State<Functions_Page> {
                             CoreConnector.instance.changeUIStateToCore("places_page");
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Places_Page()),
+                              MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:Places_Page())),
                             );
                           },
                           child:
@@ -264,7 +264,7 @@ class _FunctionsState extends State<Functions_Page> {
                             CoreConnector.instance.changeUIStateToCore("information_page");
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Information_Page()),
+                              MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:Information_Page())),
                             );
                           },
                           child:

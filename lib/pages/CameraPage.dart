@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../connections/CoreConnector.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class Camera_Page extends StatefulWidget {
@@ -50,7 +51,7 @@ class _CameraState extends State<Camera_Page> {
                 width: 100,
                 height: 80,
                 child: ElevatedButton(
-                  child: Text("بازگشت"),
+                  child: Text(AppLocalizations.of(context).backBtn),
                   onPressed: () {
                     CoreConnector.instance.changeUIStateToCore("alpha");
                   }

@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:aicell/main.dart';
+import 'package:dart_nats/dart_nats.dart';
 import 'package:http/http.dart' as http;
 import '../States.dart';
 
@@ -21,8 +23,8 @@ Future<http.Response> getPlaces() async {
   return response;
 }
 
-Future<String> getWeather(String city) async {
-  var url = Uri.parse('http://localhost:8000/weather?q=' + city + '&appid=b8563a6551279ccbfe066c7f77dd3293&units=metric');
+Future<String> getWeather(String city, String language) async {
+  var url = Uri.parse('/weather?q=' + city + '&appid=b8563a6551279ccbfe066c7f77dd3293&units=metric&'+'lang='+language);
   var response = await http.get(url,
       headers: {"content-type": "application/json"});
   return response.body;
@@ -42,11 +44,12 @@ Future<http.Response> getState() async {
   return response;
 }
 
-Future<http.Response> getHotels(String query) async {
-  var url = Uri.parse('https://ws.alibaba.ir/api/v2/hotel/suggest?query='+query);
+Future<List> getHotels(String query) async{
+  var url = Uri.parse('http://localhost:8000/suggest?query='+query);
   var response = await http.get(url,
       headers: {"content-type": "application/json"});
-  return response;
+  log(jsonEncode(jsonDecode(response.body)['data'][0]['items']));
+  return jsonDecode(utf8.decode(response.bodyBytes))['data'][0]['items'];
 }
 
 Future<http.Response> setUIState(String state) async {

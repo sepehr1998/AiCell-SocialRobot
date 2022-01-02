@@ -6,6 +6,7 @@ import 'package:aicell/pages/TollModal.dart';
 import 'package:aicell/widgets/Header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'TicketPage.dart';
 
@@ -78,7 +79,7 @@ class _ServicesState extends State<Services_Page> {
                                   margin: EdgeInsets.only(top: 50),
                                   child:
                                   Text(
-                                    "Taxi",
+                                    AppLocalizations.of(context).taxi,
                                     style: TextStyle(
                                       decoration: TextDecoration.none,
                                       fontSize: 45,
@@ -143,7 +144,7 @@ class _ServicesState extends State<Services_Page> {
                               Container(
                                   child:
                                   Text(
-                                    "Hotel",
+                                    AppLocalizations.of(context).hotel,
                                     style: TextStyle(
                                       decoration: TextDecoration.none,
                                       fontSize: 45,
@@ -207,7 +208,7 @@ class _ServicesState extends State<Services_Page> {
                                 Container(
                                     child:
                                     Text(
-                                      "Toll",
+                                      AppLocalizations.of(context).toll,
                                       style: TextStyle(
                                         decoration: TextDecoration.none,
                                         fontSize: 45,
@@ -263,7 +264,7 @@ class _ServicesState extends State<Services_Page> {
                                   Container(
                                       margin: EdgeInsets.only(top: 40),
                                       child: Text(
-                                        "Back",
+                                        AppLocalizations.of(context).backBtn,
                                         style:
                                         TextStyle(
                                           decoration: TextDecoration.none,

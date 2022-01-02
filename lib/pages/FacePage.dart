@@ -1,6 +1,14 @@
 
 
 import 'package:aicell/connections/HttpConnector.dart';
+import 'package:aicell/pages/FlightListPage.dart';
+import 'package:aicell/pages/ForbiddenItemsPage.dart';
+import 'package:aicell/pages/HotelFieldsPage.dart';
+import 'package:aicell/pages/InformationPage.dart';
+import 'package:aicell/pages/PlacesPage.dart';
+import 'package:aicell/pages/ServicesPage.dart';
+import 'package:aicell/pages/SnappModal.dart';
+import 'package:aicell/pages/TollModal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../connections/CoreConnector.dart';
@@ -67,6 +75,54 @@ class _faceState extends State<face> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:Ticket_Page())),
+          );
+          break;
+        case "sevice_page":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:Services_Page())),
+          );
+          break;
+        case "taxi_redirect":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:SnappModal_Page())),
+          );
+          break;
+        case "toll_redirect":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:TollModal_Page())),
+          );
+          break;
+        case "hotel_page":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:HotelFields())),
+          );
+          break;
+        case "places_page":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:Places_Page())),
+          );
+          break;
+        case "information_page":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:Information_Page())),
+          );
+          break;
+        case "flight_list":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:FlightList_Page())),
+          );
+          break;
+        case "forbidden_items":
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:ForbiddenItems_Page())),
           );
           break;
         case "ticket":

@@ -3,6 +3,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:easy_web_view/easy_web_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class SnappModal_Page extends StatefulWidget {
@@ -43,7 +44,7 @@ class _SnappModalState extends State<SnappModal_Page> {
               width: 700,
               height: 100,
               child: ElevatedButton(
-                child: Text("Close", style: TextStyle(
+                child: Text(AppLocalizations.of(context).closeBtn, style: TextStyle(
                     fontSize: 30
                 ),),
                 onPressed: () {

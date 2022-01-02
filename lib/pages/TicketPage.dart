@@ -12,6 +12,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class Ticket_Page extends StatefulWidget {
   @override
   _TicketState createState() => _TicketState();
@@ -434,7 +436,7 @@ class _TicketState extends State<Ticket_Page> {
                                     Container(
                                         margin: EdgeInsets.only(top: 60),
                                         child: Text(
-                                          "Get Map",
+                                          AppLocalizations.of(context).getMapBtn,
                                           style:
                                           TextStyle(
                                             decoration: TextDecoration.none,
@@ -493,7 +495,7 @@ class _TicketState extends State<Ticket_Page> {
                             Container(
                                 margin: EdgeInsets.only(top: 40),
                                 child: Text(
-                                  "Guide to gate",
+                                  AppLocalizations.of(context).guideToGate,
                                   style:
                                   TextStyle(
                                     decoration: TextDecoration.none,
@@ -557,7 +559,7 @@ class _TicketState extends State<Ticket_Page> {
                               Container(
                                   margin: EdgeInsets.only(top: 60),
                                   child: Text(
-                                    "Destination Weather",
+                                    AppLocalizations.of(context).destinationWeather,
                                     style:
                                     TextStyle(
                                       decoration: TextDecoration.none,
@@ -608,7 +610,7 @@ class _TicketState extends State<Ticket_Page> {
                                 margin: EdgeInsets.only(top: 50),
                                 child:
                                 Text(
-                                  "SMS Alarm",
+                                  AppLocalizations.of(context).smsAlarm,
                                   style: TextStyle(
                                     decoration: TextDecoration.none,
                                     fontSize: 45,
@@ -672,7 +674,7 @@ class _TicketState extends State<Ticket_Page> {
                                 Container(
                                     child:
                                     Text(
-                                      "Back",
+                                      AppLocalizations.of(context).backBtn,
                                       style: TextStyle(
                                         decoration: TextDecoration.none,
                                         fontSize: 45,

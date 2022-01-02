@@ -1,8 +1,13 @@
+import 'package:aicell/connections/HttpConnector.dart';
+import 'package:aicell/pages/AlibabaModal.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
+import 'package:flutter_typeahead_web/cupertino_flutter_typeahead.dart';
+import 'package:flutter_typeahead_web/flutter_typeahead.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HotelFields extends StatefulWidget {
   @override
@@ -13,10 +18,14 @@ class _HotelFieldsState extends State<HotelFields> {
   int adults = 1;
   int children = 1;
   String city;
-  int numOfChild;
-  int numOfAdult;
+  int numOfChild=0;
+  int numOfAdult=1;
   String entranceDate;
   String leavingDate;
+  String inputText;
+  final TextEditingController _typeAheadController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -33,35 +42,49 @@ class _HotelFieldsState extends State<HotelFields> {
                   height: 100,
                   width: 200,
                   child:
-                  Text("Destination city: ", style: TextStyle(
+                  Text(AppLocalizations.of(context).destCity, style: TextStyle(
                     fontSize: 24,
                   ),),
                 ),
                 Container(
                   height: 100,
                   width: 400,
-                  child: AutoCompleteTextField(
-                    itemBuilder: (context, item) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(item.autocompleteterm,
-                            style: TextStyle(
-                                fontSize: 16.0
-                            ),),
-                          Padding(
-                            padding: EdgeInsets.all(15.0),
+                  child: TypeAheadField(
+                    itemBuilder: (context, itemData) {
+                      return ListTile(
+                        title: Text(itemData['title'],
+                          style: TextStyle(
+                            fontFamily: 'OtomanopeeOne',
                           ),
-                          Text(item.country,
-                          )
-                        ],
+                        ),
+                        subtitle: Text(itemData['country'],
+                        style: TextStyle(
+                            fontFamily: 'OtomanopeeOne',
+                        ),
+                        )
                       );
                     },
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter your destination city',
+                    onSuggestionSelected: (suggestion) {
+                      setState(() {
+                        city = 'City_'+suggestion['id']+'_'+suggestion['city'];
+                      });
+                      this._typeAheadController.text = suggestion['city'];
+                    },
+                    suggestionsCallback: getHotels,
+                    textFieldConfiguration: TextFieldConfiguration(
+                        autofocus: true,
+                        controller: this._typeAheadController,
+                        style: DefaultTextStyle.of(context).style.copyWith(
+                            fontStyle: FontStyle.italic,
+                            fontFamily: 'OtomanopeeOne',
+                          decoration: TextDecoration.none,
+                          color: Colors.black
+                        ),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder()
+                        )
                     ),
-                  ),
+                  )
                 ),
               ],
             ),
@@ -73,7 +96,7 @@ class _HotelFieldsState extends State<HotelFields> {
                   height: 50,
                   width: 200,
                   child:
-                  Text("Entrance Date: ", style: TextStyle(
+                  Text(AppLocalizations.of(context).entranceDate, style: TextStyle(
                     fontSize: 24,
                   ),),
                 ),
@@ -105,7 +128,7 @@ class _HotelFieldsState extends State<HotelFields> {
                   height: 50,
                   width: 200,
                   child:
-                  Text("Leaving Date: ", style: TextStyle(
+                  Text(AppLocalizations.of(context).leavingDate, style: TextStyle(
                     fontSize: 24,
                   ),),
                 ),
@@ -143,7 +166,7 @@ class _HotelFieldsState extends State<HotelFields> {
                     height: 50,
                     width: 220,
                     child:
-                    Text("Number of adults: ", style: TextStyle(
+                    Text(AppLocalizations.of(context).adults, style: TextStyle(
                       fontSize: 24,
                     ),),
                   ),
@@ -168,7 +191,7 @@ class _HotelFieldsState extends State<HotelFields> {
                     height: 50,
                     width: 220,
                     child:
-                    Text("Number of children: ", style: TextStyle(
+                    Text(AppLocalizations.of(context).children, style: TextStyle(
                       fontSize: 24,
                     ),),
                   ),
@@ -196,14 +219,20 @@ class _HotelFieldsState extends State<HotelFields> {
               height: 100,
               margin: EdgeInsets.only(top: 50),
               child: ElevatedButton(
-                child: Text("Search", style: TextStyle(
+                child: Text(AppLocalizations.of(context).search, style: TextStyle(
                     fontSize: 30
                 ),),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.green,
                 ),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>  AlibabaModal_Page(
+                          departing: entranceDate,
+                          destCity: city,
+                          returning: leavingDate,
+                        )),);
+
                 }
                 ,
               ),
@@ -212,7 +241,7 @@ class _HotelFieldsState extends State<HotelFields> {
               width: 700,
               height: 100,
               child: ElevatedButton(
-                child: Text("Close", style: TextStyle(
+                child: Text(AppLocalizations.of(context).closeBtn, style: TextStyle(
                     fontSize: 30
                 ),),
                 onPressed: () {

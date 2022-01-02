@@ -7,12 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
-class TollModal_Page extends StatefulWidget {
-  @override
-  _TollModalState createState() => _TollModalState();
-}
+class AlibabaModal_Page extends StatelessWidget {
 
-class _TollModalState extends State<TollModal_Page> {
+  const AlibabaModal_Page({Key key, this.destCity, this.departing, this.returning, this.rooms = "30"}) : super(key: key);
+
+  final String destCity;
+  final String departing;
+  final String returning;
+  final String rooms;
 
   @override
   @override
@@ -26,12 +28,15 @@ class _TollModalState extends State<TollModal_Page> {
           children: [
             Container(
                 width: 800,
-                height: 1000,
+                height: 600,
                 margin: EdgeInsets.only(bottom: 30),
                 child:
                 EasyWebView(
-                  src: "https://sadadpsp.ir/Tollpayment/",
-                  key: Key("Toll"),
+                  src: "http://localhost:8000/hotel/search?destination="+destCity
+                      +"&departing="+departing
+                      +"&returning="+returning
+                      +"&rooms="+rooms,
+                  key: Key("Alibaba"),
                   isHtml: false,
                   isMarkdown: false,
                   convertToWidgets: false,

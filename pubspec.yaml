@@ -44,6 +44,8 @@ dependencies:
   date_time_picker: ^2.0.0
   cached_network_image: 3.0.0
   autocomplete_textfield: ^1.6.4
+  flutter_typeahead_web: ^1.0.0+1
+
 
 dev_dependencies:
   flutter_test:

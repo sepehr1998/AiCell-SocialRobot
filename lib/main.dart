@@ -29,21 +29,22 @@ class AiCell extends StatefulWidget {
 
 class _AiCellState extends State<AiCell> {
 
-  Locale _locale = Locale('en');
+  Locale locale = Locale('en');
 
   void setLocale(Locale value) {
     setState(() {
-      _locale = value;
+      locale = value;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+
     return
       MaterialApp(
           debugShowCheckedModeBanner: false,
           initialRoute: '/',
-          locale: _locale,
+          locale: locale,
           localizationsDelegates: [
             GlobalCupertinoLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,

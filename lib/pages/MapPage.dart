@@ -16,7 +16,7 @@ class GetMap_Page extends StatelessWidget {
 
   loadImageByLocation(double curntX, double curnty, double destX, double destY){
     if(this.curntX != null && this.curnty != null && this.destX != null && this.destY != null){
-      return Image.network("http://194.5.188.218:5011/data.png");
+      return Image.network("/data.png");
     } else{
       return CachedNetworkImage(imageUrl: 'http://194.5.188.218:5010/QR_CODE?'+
           'loc=('+ curntX.toString() +','+curnty.toString()+')'+
@@ -44,7 +44,7 @@ class GetMap_Page extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: 30),
                 child:
                 // Image.asset("assets/features.png")
-                Image.network("http://194.5.188.218:5011/map.png")
+                Image.network("/map.png")
             ),
             DottedBorder(
               borderType: BorderType.RRect,
@@ -79,7 +79,7 @@ class GetMap_Page extends StatelessWidget {
               width: 700,
               height: 100,
               child: ElevatedButton(
-                child: Text("Back", style: TextStyle(
+                child: Text(AppLocalizations.of(context).backBtn, style: TextStyle(
                     fontSize: 30
                 ),),
                 onPressed: () {

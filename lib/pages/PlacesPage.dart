@@ -78,7 +78,7 @@ class _PlacesState extends State<Places_Page> {
               height: 600,
               child:
               // Image.asset("assets/features.png")
-              Image.network("http://194.5.188.218:5011/initmap.png")
+              Image.network("/initmap.png")
           ),
           Container(
             height: 1320,

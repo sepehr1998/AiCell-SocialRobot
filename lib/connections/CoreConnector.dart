@@ -43,7 +43,7 @@ class CoreConnector {
 
 
   void connect() async{
-    await client.connect(Uri.parse('ws://localhost:80'));
+    await client.connect(Uri.parse('ws://'+Uri.base.host+':80'));
     sendUIStateToCore(state);
   }
 

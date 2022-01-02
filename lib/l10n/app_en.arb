@@ -50,5 +50,18 @@
     "parking": "Parking",
     "prayingRoom": "Praying Room",
     "stairs": "Stairs",
-    "elevator": "Elevator"
+    "elevator": "Elevator",
+    "hotel": "Hotel",
+    "taxi": "Taxi",
+    "getMapBtn": "Get Map",
+    "guideToGate": "Guide To Gate",
+    "destinationWeather": "Destination Weather",
+    "smsAlarm": "SMS Alarm",
+    "destCity": "Destination City",
+    "entranceDate": "Entrance Date",
+    "leavingDate": "Leaving Date",
+    "adults": "Number of Adults",
+    "children": "Number of Children",
+    "search": "Search",
+    "closeBtn": "Close"
 }

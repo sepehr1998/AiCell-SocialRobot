@@ -7,6 +7,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../main.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Weather_Page extends StatelessWidget {
 
@@ -14,7 +17,7 @@ class Weather_Page extends StatelessWidget {
 
   final String cityName;
 
-  FutureBuilder getWeatherContent(String city){
+  FutureBuilder getWeatherContent(String city,String language){
 
     return FutureBuilder(builder: ( context , snapshot ) {
       var json = jsonDecode(snapshot.data);
@@ -50,7 +53,7 @@ class Weather_Page extends StatelessWidget {
               Container(
                   margin: EdgeInsets.only(left: 20, top: 50),
                   child:
-                  Text(json['weather'][0]['main'].toString()+", ", style: TextStyle(
+                  Text(json['weather'][0]['description'].toString()+", ", style: TextStyle(
                     fontSize: 46,
                   ),)
               ),
@@ -74,7 +77,7 @@ class Weather_Page extends StatelessWidget {
             width: 700,
             height: 100,
             child: ElevatedButton(
-              child: Text("Back", style: TextStyle(
+              child: Text(AppLocalizations.of(context).backBtn, style: TextStyle(
                   fontSize: 30
               ),),
               onPressed: () {
@@ -85,7 +88,7 @@ class Weather_Page extends StatelessWidget {
           ),
         ],
       );
-    },future: getWeather(city), initialData: jsonEncode({
+    },future: getWeather(city,language), initialData: jsonEncode({
       'name':'',
       'weather':[{
         'main':'',
@@ -106,7 +109,7 @@ class Weather_Page extends StatelessWidget {
     ActivityTimer.context = context;
     ActivityTimer.instance.resetTimer();
     return AlertDialog(
-      content: getWeatherContent(cityName),
+      content: getWeatherContent(cityName,AiCell.of(context).locale.languageCode),
     );
   }
 }

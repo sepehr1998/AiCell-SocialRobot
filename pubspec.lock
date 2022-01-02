@@ -28,7 +28,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.0"
+    version: "2.6.1"
   autocomplete_textfield:
     dependency: "direct main"
     description:
@@ -198,6 +198,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_typeahead_web:
+    dependency: "direct main"
+    description:
+      name: flutter_typeahead_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0+1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -424,7 +431,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.0"
+    version: "1.8.1"
   sqflite:
     dependency: transitive
     description:
@@ -480,7 +487,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.19"
+    version: "0.3.0"
   typed_data:
     dependency: transitive
     description:
