@@ -2,7 +2,7 @@
 import 'dart:developer';
 
 import 'package:aicell/components/ActivityTimer.dart';
-import 'package:aicell/connections/HttpConnector.dart';
+import 'package:aicell/connections/CoreConnector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -82,15 +82,8 @@ class _RatingState extends State<Rating_Page> {
                   primary: Colors.green,
                 ),
                 onPressed: () {
-                  sendFeedback(_rating.toInt()).then((value) {
-                    if(value.statusCode== 200){
-                      html.window.location.reload();
-                    }
-                    else{
-                      log("no good answer from core");
-                      log(value.body);
-                    }
-                  });
+                  CoreConnector.instance.sendFeedback(_rating.toInt());
+                  html.window.location.reload();
                 }
                 ,
               ),

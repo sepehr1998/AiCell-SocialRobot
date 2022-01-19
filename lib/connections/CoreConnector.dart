@@ -41,6 +41,9 @@ class CoreConnector {
 
   }
 
+  void sendFeedback(int feedback){
+    client.pubString('feedback', feedback.toString());
+  }
 
   void connect() async{
     await client.connect(Uri.parse('ws://'+Uri.base.host+':80'));

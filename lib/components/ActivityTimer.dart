@@ -20,16 +20,17 @@ class ActivityTimer {
     _context = context;
   }
 
-  RestartableTimer _timer = new RestartableTimer(new Duration(minutes: 5),() =>{
+  RestartableTimer _timer = new RestartableTimer(new Duration(minutes: 5),(){
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => face()),
-  )
+    );
+    CoreConnector.instance.changeUIStateToCore("start");
   });
 
   void resetTimer(){
     log("resetting timer for functionality");
-    CoreConnector.instance.changeUIStateToCore("start");
+    // CoreConnector.instance.changeUIStateToCore("start");
     _timer.reset();
   }
 

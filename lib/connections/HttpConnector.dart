@@ -8,7 +8,7 @@ import '../States.dart';
 
 
 Future<http.Response> touched() async {
-  var url = Uri.parse('http://localhost:5002/touch');
+  var url = Uri.parse('/touch');
   var response = await http.post(url,
       body: jsonEncode({'touched': 'True'}),
       headers: {"content-type": "application/json"});
@@ -17,7 +17,7 @@ Future<http.Response> touched() async {
 
 
 Future<http.Response> getPlaces() async {
-  var url = Uri.parse('http://localhost:5002/send_places');
+  var url = Uri.parse('/send_places');
   var response = await http.get(url,
       headers: {"content-type": "application/json"});
   return response;
@@ -45,7 +45,7 @@ Future<http.Response> getState() async {
 }
 
 Future<List> getHotels(String query) async{
-  var url = Uri.parse('http://localhost:8000/suggest?query='+query);
+  var url = Uri.parse('/suggest?query='+query);
   var response = await http.get(url,
       headers: {"content-type": "application/json"});
   log(jsonEncode(jsonDecode(response.body)['data'][0]['items']));
@@ -78,7 +78,7 @@ Future<http.Response> getPlaceTypes() async {
 }
 
 Future<http.Response> changePlaceMap(double curntX,double curnty,double destX,double destY) async {
-  var url = Uri.parse('http://localhost:8000/QR_CODE?'+
+  var url = Uri.parse('/QR_CODE?'+
       'loc=('+ curntX.toString() +','+curnty.toString()+')'+
       '&dis=('+ destX.toString() +','+destY.toString()+')');
   var response = await http.get(url,
@@ -88,13 +88,13 @@ Future<http.Response> changePlaceMap(double curntX,double curnty,double destX,do
   return response;
 }
 
-Future<http.Response> sendFeedback(int feedback) async {
-  var url = Uri.parse('http://localhost:5002/feedback');
-  var response = await http.post(url,
-      body: jsonEncode({'feedback': feedback}),
-      headers: {"content-type": "application/json"});
-  return response;
-}
+// void sendFeedback(int feedback)  {
+//   var url = Uri.parse('http://localhost:5002/feedback');
+//   var response = await http.post(url,
+//       body: jsonEncode({'feedback': feedback}),
+//       headers: {"content-type": "application/json"});
+//   return response;
+// }
 
 
 Future<http.Response> sendSMS(String phoneNumber, String delay,String gateState, String id) async {
