@@ -45,6 +45,11 @@ class CoreConnector {
     client.pubString('feedback', feedback.toString());
   }
 
+  void languageSelected(String language) async {
+    client.pubString("language", language);
+  }
+
+
   void connect() async{
     await client.connect(Uri.parse('ws://'+Uri.base.host+':80'));
     sendUIStateToCore(state);

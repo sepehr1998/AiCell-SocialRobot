@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:aicell/pages/FacePage.dart';
 import 'package:aicell/pages/FunnctionsPage.dart';
+import 'package:aicell/pages/HelpPage.dart';
 import 'package:aicell/pages/InformationPage.dart';
 import 'package:aicell/pages/LanguagePage.dart';
 import 'package:aicell/pages/PlacesPage.dart';
@@ -66,7 +66,7 @@ class _AiCellState extends State<AiCell> {
           home:
           Directionality(
             textDirection: TextDirection.ltr,
-            child: face())
+            child: HelpPage())
           );
 
   }

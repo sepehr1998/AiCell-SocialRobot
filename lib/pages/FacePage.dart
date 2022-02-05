@@ -25,128 +25,13 @@ class face extends StatefulWidget {
 
 class _faceState extends State<face> {
 
-  var client = CoreConnector.instance.client;
 
   @override
   Widget build(BuildContext context) {
     // Timer getTimer = new Timer.periodic(timerDurationGet, syncState);
-    var sub = client.sub("CORE2UI");
-    sub.stream.listen((event) {
-      CoreConnector.instance.state = event.string;
-      print("ui state changed to: "+ CoreConnector.instance.state);
-      switch (CoreConnector.instance.state) {
-        case "choose_language":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.ltr, child: Languages_Page())),
-          );
-          break;
-        case "start":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Directionality(textDirection: TextDirection.ltr, child:face())),
-          );
-          break;
-        case "introduction":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:face())),
-          );
-          break;
-        case "wait_move":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:face())),
-          );
-          break;
-        case "move_to_destination":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:face())),
-          );
-          break;
-        case "goodbye":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:face())),
-          );
-          break;
-        case "wait_ticket":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:Ticket_Page())),
-          );
-          break;
-        case "sevice_page":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:Services_Page())),
-          );
-          break;
-        case "taxi_redirect":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:SnappModal_Page())),
-          );
-          break;
-        case "toll_redirect":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:TollModal_Page())),
-          );
-          break;
-        case "hotel_page":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:HotelFields())),
-          );
-          break;
-        case "places_page":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:Places_Page())),
-          );
-          break;
-        case "information_page":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:Information_Page())),
-          );
-          break;
-        case "flight_list":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:FlightList_Page())),
-          );
-          break;
-        case "forbidden_items":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:ForbiddenItems_Page())),
-          );
-          break;
-        case "ticket":
-          showDialog(context: context, builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:Camera_Page()), barrierDismissible: false);
-          break;
-        case "alpha":
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:Functions_Page())),
-          );
-          break;
-        case "mask_error":
-          showDialog(context: context, builder: (context) =>  Directionality(textDirection: TextDirection.ltr, child:Camera_Page()),  barrierDismissible: false);
-          break;
-      }
-    });
     return GestureDetector(
       onTap: () {
-        touched().then((value) {
-          if (value.statusCode == 200) {
-            CoreConnector.instance.changeUIStateToCore("choose_language");
-          }
-        }
-        );
+          CoreConnector.instance.changeUIStateToCore("choose_language");
       },
       child:Container(
           color: Colors.transparent,

@@ -67,12 +67,12 @@ class _LanguagesState extends State<Languages_Page> {
                     GestureDetector(
                       onTap: () {
                         States.instance.language = "English";
-                        languageSelected(States.instance.language).then((value) {
-                          if(value.statusCode ==200) {
+                        // languageSelected(States.instance.language).then((value) {
+                        //   if(value.statusCode ==200) {
                             AiCell.of(context).setLocale(Locale('en'));
-                            CoreConnector.instance.changeUIStateToCore("alpha");
-                          }
-                        });
+                            CoreConnector.instance.languageSelected(States.instance.language);
+                        //   }
+                        // });
                       },
                       child:
                       Container(
@@ -122,12 +122,12 @@ class _LanguagesState extends State<Languages_Page> {
                     GestureDetector(
                       onTap: () {
                         States.instance.language = "Farsi";
-                        languageSelected(States.instance.language).then((value) {
-                          if(value.statusCode ==200) {
-                            CoreConnector.instance.changeUIStateToCore("alpha");
+                        // languageSelected(States.instance.language).then((value) {
+                        //   if(value.statusCode ==200) {
+                            CoreConnector.instance.languageSelected(States.instance.language);
                             AiCell.of(context).setLocale(Locale('fa'));
-                          }
-                        });
+                        //   }
+                        // });
                       },
                       child: Container(
                           margin: EdgeInsets.only(left: 150, top: 80),

@@ -45,7 +45,7 @@ dependencies:
   cached_network_image: 3.0.0
   autocomplete_textfield: ^1.6.4
   flutter_typeahead_web: ^1.0.0+1
-
+#  video_player: ^2.2.16
 
 dev_dependencies:
   flutter_test:
@@ -88,6 +88,7 @@ flutter:
      - assets/forbiddenitems.png
      - assets/welcome-icegif.gif
      - assets/sms.png
+     - assets/aicellHowToUseFinall.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
